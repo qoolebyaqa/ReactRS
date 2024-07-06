@@ -12,9 +12,11 @@ class Pokelist extends Component<itemsProps> {
   }
   render(): ReactNode {
     return (
-      <ul>
-        {this.props.items.map(pokemon => <Pokeitem item={pokemon} key={pokemon.url}/>)}        
-      </ul>
+      <main>      
+        <ul>
+          {this.props.items.map(pokemon => <Pokeitem item={pokemon} key={pokemon.url}/>)}        
+        </ul>
+      </main>
     )
   }
 }

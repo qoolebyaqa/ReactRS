@@ -32,7 +32,7 @@ class SearchComponent extends Component<ISearchProp, ISearchState> {
 
   render(): ReactNode {
     return (
-      <div>
+      <header>
         <label htmlFor="search"></label>
         <input
           type="text"
@@ -44,7 +44,7 @@ class SearchComponent extends Component<ISearchProp, ISearchState> {
         <button type="button" onClick={this.handleSearch}>
           SEARCH
         </button>
-      </div>
+      </header>
     );
   }
 }
