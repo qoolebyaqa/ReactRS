@@ -14,7 +14,7 @@ class Pokelist extends Component<itemsProps> {
     return (
       <main>      
         <ul>
-          {this.props.items.map(pokemon => <Pokeitem item={pokemon} key={pokemon.url}/>)}        
+          {this.props.items.map(pokemon=> <Pokeitem item={pokemon} key={pokemon.url}/>)}        
         </ul>
       </main>
     )
