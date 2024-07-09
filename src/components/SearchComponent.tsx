@@ -1,52 +1,34 @@
-import React, { Component, ReactNode } from 'react';
+import { useState } from 'react';
+import { ISearchProp } from '../types';
 
-interface ISearchState {
-  searchValue: string;
-}
-
-interface ISearchProp {
-  pokemonsUpdater: () => void
-}
-
-class SearchComponent extends Component<ISearchProp, ISearchState> {
-  constructor(props: ISearchProp) {
-    super(props); 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-
-    this.state = {
-      searchValue: localStorage.currentSearch || '' 
-    };
+function SearchComponent(props: ISearchProp) {
+  const [searchValue, setSearchValue] = useState(
+    localStorage.currentSearch || ''
+  );
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setSearchValue(event.target.value);
   }
 
-  handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      searchValue: event.target.value
-    });
+  function handleSearch() {
+    localStorage.setItem('currentSearch', searchValue.toLowerCase());
+    props.pokemonsUpdater();
   }
 
-  handleSearch() {
-    localStorage.setItem("currentSearch", this.state.searchValue.toLowerCase());
-    this.props.pokemonsUpdater()
-  }
-
-  render(): ReactNode {
-    return (
-      <header>
-        <label htmlFor="search"></label>
-        <input
-          type="text"
-          name="search"
-          placeholder="Choose your pokemon!"
-          value={this.state.searchValue}
-          onChange={this.handleInputChange}
-        />
-        <button type="button" onClick={this.handleSearch}>
-          SEARCH
-        </button>
-      </header>
-    );
-  }
+  return (
+    <header>
+      <label htmlFor="search"></label>
+      <input
+        type="text"
+        name="search"
+        placeholder="Choose your pokemon!"
+        value={searchValue}
+        onChange={handleInputChange}
+      />
+      <button type="button" onClick={handleSearch}>
+        SEARCH
+      </button>
+    </header>
+  );
 }
 
 export default SearchComponent;

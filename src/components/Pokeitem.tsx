@@ -1,23 +1,18 @@
-import { Component, ReactNode } from "react";
-import { IPokeItem } from "../App";
+import { IPokeItem } from "../types";
+
 
 type itemsProps = {
   item: IPokeItem
 }
 
-class Pokeitem extends Component<itemsProps> {
-  constructor(props: itemsProps) {
-    super(props)
-  }
-  render(): ReactNode {
-    return (
-      <li>
-        <p>{`${this.props.item.url.slice(this.props.item.url.indexOf('pokemon') + 8, -1)}  -  `}</p>
-        <p>{`${this.props.item.name} - `}</p>
-        <p>{`Deep description in ${this.props.item.url}`}</p>
-      </li>
-    )
-  }
+function Pokeitem(itemsProps:itemsProps) {
+  return (
+    <li>
+      <p>{`${itemsProps.item.url.slice(itemsProps.item.url.indexOf('pokemon') + 8, -1)}  -  `}</p>
+      <p>{`${itemsProps.item.name} - `}</p>
+      <p>{`Deep description in ${itemsProps.item.url}`}</p>
+    </li>
+  )
 }
 
 export default Pokeitem;
