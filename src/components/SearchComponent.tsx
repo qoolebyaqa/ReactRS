@@ -1,16 +1,14 @@
-import { useState } from 'react';
 import { ISearchProp } from '../types';
+import useLS from '../hooks/useLS';
 
 function SearchComponent(props: ISearchProp) {
-  const [searchValue, setSearchValue] = useState(
-    localStorage.currentSearch || ''
-  );
+  const [query, setQuery] = useLS();
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setSearchValue(event.target.value);
+    setQuery(event.target.value);
   }
 
   function handleSearch() {
-    localStorage.setItem('currentSearch', searchValue.toLowerCase());
+    localStorage.setItem('currentSearch', query.toLowerCase());
     props.pokemonsUpdater();
   }
 
@@ -21,7 +19,7 @@ function SearchComponent(props: ISearchProp) {
         type="text"
         name="search"
         placeholder="Choose your pokemon!"
-        value={searchValue}
+        value={query}
         onChange={handleInputChange}
       />
       <button type="button" onClick={handleSearch}>

@@ -12,6 +12,7 @@ function MainComponent () {
   errorCreator: false,
   loading: false,
   };
+
   const [appState, setAppState] = useState(initial)
   
   useEffect(() => {
