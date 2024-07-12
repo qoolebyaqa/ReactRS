@@ -13,7 +13,7 @@ function SearchComponent(props: ISearchProp) {
   }
 
   return (
-    <header>
+    <section>
       <label htmlFor="search"></label>
       <input
         type="text"
@@ -25,7 +25,7 @@ function SearchComponent(props: ISearchProp) {
       <button type="button" onClick={handleSearch}>
         SEARCH
       </button>
-    </header>
+    </section>
   );
 }
 

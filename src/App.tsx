@@ -1,15 +1,14 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import MainPage from './components/MainComponent';
-import GreetingPage from './pages/GreetingPage';
 import RootLayout from './pages/RootLayout';
 import ErrorPage from './pages/ErrorPage';
+import DescriptionCard from './components/DescriptionCard';
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: '/ReactRS',
+      path: '/ReactRS/',
       element: <RootLayout />,      
-      children: [{ path: '/ReactRS', element: <MainPage />}, { path: '/ReactRS/greeting', element: <GreetingPage />}],
+      children: [{path: '/ReactRS/:namePokemon', element: <DescriptionCard />}],
       errorElement: <ErrorPage />
     }
   ]);

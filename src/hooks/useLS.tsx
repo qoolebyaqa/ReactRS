@@ -10,7 +10,7 @@ function useLS() {
     };
   }, [query]);
 
-  return [query, setQuery] as const;
+  return [query, setQuery];
 }
 
 export default useLS;

@@ -1,18 +1,22 @@
-import { IPokeItem } from "../types";
-
+import { IPokeItem } from '../types';
+import { Link } from 'react-router-dom';
 
 type itemsProps = {
-  item: IPokeItem
-}
+  item: IPokeItem;
+};
 
-function Pokeitem(itemsProps:itemsProps) {
+function Pokeitem(itemsProps: itemsProps) {
   return (
-    <li>
-      <p>{`${itemsProps.item.url.slice(itemsProps.item.url.indexOf('pokemon') + 8, -1)}  -  `}</p>
-      <p>{`${itemsProps.item.name} - `}</p>
-      <p>{`Deep description in ${itemsProps.item.url}`}</p>
+    <li style={{ display: 'flex', justifyContent: 'left' }}>
+      <Link to={itemsProps.item.name}>
+        <button
+          style={{ width: '150px', margin: '2px 0', marginRight: '20px' }}          
+        >
+          {itemsProps.item.name}
+        </button>
+      </Link>
     </li>
-  )
+  );
 }
 
 export default Pokeitem;

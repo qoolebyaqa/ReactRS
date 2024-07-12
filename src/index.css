@@ -16,7 +16,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+#root {
+  display: flex;
+  justify-content: center;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -51,13 +54,9 @@ button:focus-visible {
 }
 li {
   list-style-type: none;
-  display: flex;
-  justify-content: center;
 }
 #errButon {
   background-color: red;
-  position: relative;
-  left: 250px;
 }
 input {
   height: 30px;
