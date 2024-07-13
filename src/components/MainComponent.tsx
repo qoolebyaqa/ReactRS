@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Pokelist from './Pokelist';
 import SearchComponent from './SearchComponent';
 import { getPokemons } from '../api';
 import { IAppState, IPokeItem } from '../types';
 import Pagination from './Pagination';
+import {  useSearchParams } from 'react-router-dom';
 
 function MainComponent() {
   const initial: IAppState = {
@@ -16,8 +17,15 @@ function MainComponent() {
     currentPage: 1,
   };
 
-  const [appState, setAppState] = useState(initial);
-  async function fetchData() {
+  const [appState, setAppState] = useState(initial);  
+  const [searchParams, setSearchParms] = useSearchParams();
+
+  const searchQuery = searchParams.get("page") || 1
+  if (Number(searchQuery) > 15 || !Number(searchQuery)) {
+    throw new Error('The page is not exist')
+  }
+
+  const fetchData = useCallback(async() => {
     setAppState((prevState) => ({ ...prevState, loading: true }));
     const pokemonsFromAPI: IPokeItem[] = await getPokemons();
     const pokemonsUnderQuery: IPokeItem[] = localStorage.currentSearch
@@ -27,40 +35,29 @@ function MainComponent() {
     : pokemonsFromAPI
     setAppState((prevState) => ({
       ...prevState,
+      currentPage: Number(searchQuery),
       pokemonsQuery: [...pokemonsUnderQuery],
       errorCreator: prevState.errorCreator,
       loading: false,
       totalPokemons: pokemonsFromAPI,
       pokemons: pokemonsUnderQuery.slice((prevState.currentPage-1) * 10, prevState.currentPage*10),
     }));
-  }
-
+  }, [searchQuery]);
   useEffect(() => {    
     fetchData();
-  }, [appState.currentPage]);
+  }, [appState.currentPage, fetchData]);
 
-  /* async function handleUpdatePokemons() {
-    setAppState((prevState) => ({ ...prevState, loading: true }));
-    const pokemonsFromAPI: IPokeItem[] = await getPokemons();
-    const searchValue = localStorage.getItem('currentSearch') || '';
-    setAppState((prevState: IAppState) => ({
-      ...prevState,
-      currentPage: 1,
-      loading: false,
-      pokemons:
-      pokemonsFromAPI &&
-        (localStorage.getItem('currentSearch') !== ''
-          ? pokemonsFromAPI.filter((pokemon) =>
-              pokemon.name.includes(searchValue)
-            )
-          : prevState.totalPokemons),
-    }));
-  } */
   async function handleNextPage() {
     setAppState((prevState) => ({...prevState, currentPage: prevState.currentPage++}))
+    setSearchParms({page: (appState.currentPage+1).toString()})
   }
   async function handlePrevPage() {
     setAppState((prevState) => ({...prevState, currentPage: prevState.currentPage--}))
+    setSearchParms({page: (appState.currentPage-1).toString()})
+  }
+  function updateData() {
+    setSearchParms({page: '1'});
+    setAppState((prev) => ({...prev, currentPage: 1}))
   }
   function handleError() {
     setAppState((prevState) => ({
@@ -77,7 +74,7 @@ function MainComponent() {
       <button onClick={handleError} id="errButon">
         Throw an error!
       </button>
-      <SearchComponent pokemonsUpdater={appState.currentPage === 1 ? fetchData : () => (setAppState((prev) => ({...prev, currentPage: 1})))} />
+      <SearchComponent pokemonsUpdater={appState.currentPage === 1 ? fetchData : updateData } />
       {appState.loading ? (
         <p>Loading ... -_-</p>
       ) : (

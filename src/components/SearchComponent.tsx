@@ -2,9 +2,9 @@ import { ISearchProp } from '../types';
 import useLS from '../hooks/useLS';
 
 function SearchComponent(props: ISearchProp) {
-  const [query, setQuery] = useLS();
+  const [query, setQueryLS] = useLS('currentSearch', '');
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setQuery(event.target.value);
+    setQueryLS(event.target.value);
   }
 
   function handleSearch() {
