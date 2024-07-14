@@ -10,7 +10,7 @@ function Pokeitem(itemsProps: itemsProps) {
   const searchQuery = searchParams.get("page") || 1;
 
   return (
-    <li style={{ display: 'flex', justifyContent: 'left' }}>
+    <li style={{ display: 'flex', justifyContent: 'left' }}  data-testid="pokelist-item">
       <Link to={`${itemsProps.item.name}?page=${searchQuery}`}>
         <button
           style={{ width: '150px', margin: '2px 0', marginRight: '20px' }}          

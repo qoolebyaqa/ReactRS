@@ -8,7 +8,8 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["vitest/globals"],
   },
   "include": ["vite.config.ts"]
 }
