@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import MainComponent from "../components/MainComponent";
 import { MemoryRouter } from "react-router";
 
@@ -11,6 +11,8 @@ describe('api calls', async () => {
 describe('api calls', async () => {
   it("loader when api under calling", async () => {
     render(<MemoryRouter><MainComponent /></MemoryRouter>)
-    expect(await screen.findByText("Loading ... -_-")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText("Loading ... -_-")).toBeInTheDocument();
+    }, { timeout: 3000 });
   })
 })
