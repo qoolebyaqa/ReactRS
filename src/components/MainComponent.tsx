@@ -80,7 +80,7 @@ function MainComponent() {
       ) : (
         <>
           {appState.pokemons && <Pokelist items={appState.pokemons} />}
-          <Pagination onNext={handleNextPage} onPrev={handlePrevPage} currentPage={appState.currentPage} totalLength={appState.pokemonsQuery ? appState.pokemonsQuery.length : 0}/>
+          {appState.pokemonsQuery?.length !== 0 && <Pagination onNext={handleNextPage} onPrev={handlePrevPage} currentPage={appState.currentPage} totalLength={appState.pokemonsQuery ? appState.pokemonsQuery.length : 0}/>}
         </>
       )}
     </div>
