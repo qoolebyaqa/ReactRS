@@ -4,7 +4,7 @@ import { http } from '../../../node_modules/msw/src/core/http';
 export const handlers: HttpHandler[] = [
   http.get('https://pokeapi.co/api/v2/pokemon', () => {
     return HttpResponse.json({
-      "results": [{ name: 'Pokemon1', url: 'url1' }, { name: 'Pokemon2', url: 'url2' }, { name: 'Pokemon3', url: 'url3' }]
+      "results": [{ name: 'bulbasaur', url: 'url1' }, { name: 'ivysaur', url: 'url2' }]
     }, { status: 200 })
   })
 ]
