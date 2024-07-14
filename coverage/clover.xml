@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1720971342951" clover="3.2.0">
-  <project timestamp="1720971342951" name="All files">
+<coverage generated="1720971801246" clover="3.2.0">
+  <project timestamp="1720971801246" name="All files">
     <metrics statements="315" coveredstatements="251" conditionals="48" coveredconditionals="40" methods="24" coveredmethods="18" elements="387" coveredelements="309" complexity="0" loc="315" ncloc="315" packages="5" files="16" classes="16"/>
     <package name="src">
       <metrics statements="39" coveredstatements="4" conditionals="3" coveredconditionals="1" methods="3" coveredmethods="1"/>
@@ -123,23 +123,23 @@
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="9" count="24" type="cond" truecount="1" falsecount="0"/>
-        <line num="10" count="24" type="stmt"/>
-        <line num="11" count="24" type="stmt"/>
-        <line num="12" count="24" type="stmt"/>
-        <line num="13" count="24" type="stmt"/>
-        <line num="14" count="24" type="stmt"/>
-        <line num="15" count="24" type="stmt"/>
-        <line num="16" count="24" type="stmt"/>
-        <line num="17" count="24" type="stmt"/>
-        <line num="18" count="24" type="stmt"/>
-        <line num="20" count="24" type="stmt"/>
-        <line num="21" count="24" type="stmt"/>
-        <line num="23" count="24" type="cond" truecount="1" falsecount="0"/>
-        <line num="24" count="24" type="cond" truecount="1" falsecount="1"/>
+        <line num="9" count="25" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="25" type="stmt"/>
+        <line num="11" count="25" type="stmt"/>
+        <line num="12" count="25" type="stmt"/>
+        <line num="13" count="25" type="stmt"/>
+        <line num="14" count="25" type="stmt"/>
+        <line num="15" count="25" type="stmt"/>
+        <line num="16" count="25" type="stmt"/>
+        <line num="17" count="25" type="stmt"/>
+        <line num="18" count="25" type="stmt"/>
+        <line num="20" count="25" type="stmt"/>
+        <line num="21" count="25" type="stmt"/>
+        <line num="23" count="25" type="cond" truecount="1" falsecount="0"/>
+        <line num="24" count="25" type="cond" truecount="1" falsecount="1"/>
         <line num="25" count="0" type="stmt"/>
         <line num="26" count="0" type="cond" truecount="1" falsecount="0"/>
-        <line num="28" count="23" type="cond" truecount="1" falsecount="0"/>
+        <line num="28" count="24" type="cond" truecount="1" falsecount="0"/>
         <line num="29" count="8" type="cond" truecount="1" falsecount="0"/>
         <line num="30" count="8" type="stmt"/>
         <line num="31" count="8" type="cond" truecount="0" falsecount="1"/>
@@ -148,139 +148,139 @@
         <line num="34" count="0" type="stmt"/>
         <line num="35" count="8" type="stmt"/>
         <line num="36" count="8" type="cond" truecount="1" falsecount="0"/>
-        <line num="37" count="4" type="stmt"/>
-        <line num="38" count="4" type="stmt"/>
-        <line num="39" count="4" type="stmt"/>
-        <line num="40" count="4" type="stmt"/>
-        <line num="41" count="4" type="stmt"/>
-        <line num="42" count="4" type="stmt"/>
-        <line num="43" count="4" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="42" count="5" type="stmt"/>
+        <line num="43" count="5" type="stmt"/>
         <line num="44" count="8" type="stmt"/>
-        <line num="45" count="23" type="stmt"/>
-        <line num="46" count="23" type="cond" truecount="1" falsecount="0"/>
+        <line num="45" count="24" type="stmt"/>
+        <line num="46" count="24" type="cond" truecount="1" falsecount="0"/>
         <line num="47" count="8" type="stmt"/>
-        <line num="48" count="23" type="stmt"/>
-        <line num="50" count="23" type="stmt"/>
+        <line num="48" count="24" type="stmt"/>
+        <line num="50" count="24" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
         <line num="52" count="0" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
-        <line num="54" count="23" type="stmt"/>
+        <line num="54" count="24" type="stmt"/>
         <line num="55" count="0" type="stmt"/>
         <line num="56" count="0" type="stmt"/>
         <line num="57" count="0" type="stmt"/>
-        <line num="58" count="23" type="stmt"/>
+        <line num="58" count="24" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
-        <line num="62" count="23" type="cond" truecount="1" falsecount="0"/>
+        <line num="62" count="24" type="cond" truecount="1" falsecount="0"/>
         <line num="63" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="64" count="4" type="stmt"/>
         <line num="65" count="4" type="stmt"/>
         <line num="66" count="1" type="stmt"/>
         <line num="67" count="1" type="stmt"/>
-        <line num="68" count="24" type="cond" truecount="1" falsecount="0"/>
+        <line num="68" count="25" type="cond" truecount="1" falsecount="0"/>
         <line num="69" count="4" type="stmt"/>
         <line num="70" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="71" count="19" type="stmt"/>
-        <line num="72" count="19" type="stmt"/>
-        <line num="73" count="19" type="stmt"/>
-        <line num="74" count="19" type="stmt"/>
-        <line num="76" count="19" type="stmt"/>
-        <line num="77" count="24" type="cond" truecount="0" falsecount="1"/>
-        <line num="78" count="24" type="cond" truecount="1" falsecount="0"/>
+        <line num="71" count="20" type="stmt"/>
+        <line num="72" count="20" type="stmt"/>
+        <line num="73" count="20" type="stmt"/>
+        <line num="74" count="20" type="stmt"/>
+        <line num="76" count="20" type="stmt"/>
+        <line num="77" count="25" type="cond" truecount="0" falsecount="1"/>
+        <line num="78" count="25" type="cond" truecount="1" falsecount="0"/>
         <line num="79" count="8" type="cond" truecount="1" falsecount="0"/>
-        <line num="81" count="11" type="stmt"/>
-        <line num="82" count="11" type="cond" truecount="1" falsecount="0"/>
-        <line num="83" count="11" type="cond" truecount="2" falsecount="0"/>
-        <line num="84" count="11" type="stmt"/>
-        <line num="86" count="24" type="stmt"/>
-        <line num="88" count="24" type="stmt"/>
+        <line num="81" count="12" type="stmt"/>
+        <line num="82" count="12" type="cond" truecount="1" falsecount="0"/>
+        <line num="83" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="84" count="12" type="stmt"/>
+        <line num="86" count="25" type="stmt"/>
+        <line num="88" count="25" type="stmt"/>
         <line num="90" count="1" type="stmt"/>
       </file>
       <file name="Pagination.tsx" path="C:\PC\JS\ReactRS\src\components\Pagination.tsx">
         <metrics statements="8" coveredstatements="8" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="1" count="11" type="cond" truecount="1" falsecount="0"/>
-        <line num="2" count="11" type="stmt"/>
-        <line num="3" count="11" type="stmt"/>
-        <line num="4" count="11" type="stmt"/>
-        <line num="5" count="11" type="stmt"/>
-        <line num="6" count="11" type="stmt"/>
-        <line num="7" count="11" type="stmt"/>
+        <line num="1" count="12" type="cond" truecount="1" falsecount="0"/>
+        <line num="2" count="12" type="stmt"/>
+        <line num="3" count="12" type="stmt"/>
+        <line num="4" count="12" type="stmt"/>
+        <line num="5" count="12" type="stmt"/>
+        <line num="6" count="12" type="stmt"/>
+        <line num="7" count="12" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
       </file>
       <file name="Pokeitem.tsx" path="C:\PC\JS\ReactRS\src\components\Pokeitem.tsx">
         <metrics statements="16" coveredstatements="16" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
-        <line num="8" count="13" type="cond" truecount="1" falsecount="0"/>
-        <line num="9" count="13" type="stmt"/>
-        <line num="10" count="13" type="cond" truecount="1" falsecount="0"/>
-        <line num="12" count="13" type="stmt"/>
-        <line num="13" count="13" type="stmt"/>
-        <line num="14" count="13" type="stmt"/>
-        <line num="15" count="13" type="stmt"/>
-        <line num="16" count="13" type="stmt"/>
-        <line num="18" count="13" type="stmt"/>
-        <line num="19" count="13" type="stmt"/>
-        <line num="20" count="13" type="stmt"/>
-        <line num="21" count="13" type="stmt"/>
-        <line num="23" count="13" type="stmt"/>
+        <line num="8" count="15" type="cond" truecount="1" falsecount="0"/>
+        <line num="9" count="15" type="stmt"/>
+        <line num="10" count="15" type="cond" truecount="1" falsecount="0"/>
+        <line num="12" count="15" type="stmt"/>
+        <line num="13" count="15" type="stmt"/>
+        <line num="14" count="15" type="stmt"/>
+        <line num="15" count="15" type="stmt"/>
+        <line num="16" count="15" type="stmt"/>
+        <line num="18" count="15" type="stmt"/>
+        <line num="19" count="15" type="stmt"/>
+        <line num="20" count="15" type="stmt"/>
+        <line num="21" count="15" type="stmt"/>
+        <line num="23" count="15" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
       </file>
       <file name="Pokelist.tsx" path="C:\PC\JS\ReactRS\src\components\Pokelist.tsx">
         <metrics statements="24" coveredstatements="24" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="4" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="5" count="5" type="stmt"/>
-        <line num="6" count="5" type="stmt"/>
-        <line num="7" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="4" type="stmt"/>
-        <line num="10" count="4" type="stmt"/>
-        <line num="11" count="4" type="stmt"/>
-        <line num="12" count="4" type="stmt"/>
-        <line num="13" count="4" type="stmt"/>
-        <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="19" count="4" type="cond" truecount="1" falsecount="0"/>
-        <line num="20" count="8" type="stmt"/>
-        <line num="21" count="4" type="stmt"/>
-        <line num="22" count="4" type="stmt"/>
-        <line num="23" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="4" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="7" count="6" type="cond" truecount="1" falsecount="0"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="10" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="14" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="5" type="stmt"/>
+        <line num="19" count="5" type="cond" truecount="1" falsecount="0"/>
+        <line num="20" count="10" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="23" count="5" type="cond" truecount="1" falsecount="0"/>
         <line num="25" count="1" type="stmt"/>
-        <line num="27" count="5" type="stmt"/>
-        <line num="29" count="5" type="stmt"/>
+        <line num="27" count="6" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
       </file>
       <file name="SearchComponent.tsx" path="C:\PC\JS\ReactRS\src\components\SearchComponent.tsx">
         <metrics statements="26" coveredstatements="26" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
-        <line num="4" count="21" type="cond" truecount="1" falsecount="0"/>
-        <line num="5" count="21" type="stmt"/>
-        <line num="6" count="21" type="cond" truecount="1" falsecount="0"/>
+        <line num="4" count="22" type="cond" truecount="1" falsecount="0"/>
+        <line num="5" count="22" type="stmt"/>
+        <line num="6" count="22" type="cond" truecount="1" falsecount="0"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
-        <line num="10" count="21" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="22" type="cond" truecount="1" falsecount="0"/>
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
-        <line num="15" count="21" type="stmt"/>
-        <line num="16" count="21" type="stmt"/>
-        <line num="17" count="21" type="stmt"/>
-        <line num="18" count="21" type="stmt"/>
-        <line num="19" count="21" type="stmt"/>
-        <line num="20" count="21" type="stmt"/>
-        <line num="21" count="21" type="stmt"/>
-        <line num="22" count="21" type="stmt"/>
-        <line num="23" count="21" type="stmt"/>
-        <line num="24" count="21" type="stmt"/>
-        <line num="25" count="21" type="stmt"/>
-        <line num="27" count="21" type="stmt"/>
-        <line num="28" count="21" type="stmt"/>
-        <line num="30" count="21" type="stmt"/>
+        <line num="15" count="22" type="stmt"/>
+        <line num="16" count="22" type="stmt"/>
+        <line num="17" count="22" type="stmt"/>
+        <line num="18" count="22" type="stmt"/>
+        <line num="19" count="22" type="stmt"/>
+        <line num="20" count="22" type="stmt"/>
+        <line num="21" count="22" type="stmt"/>
+        <line num="22" count="22" type="stmt"/>
+        <line num="23" count="22" type="stmt"/>
+        <line num="24" count="22" type="stmt"/>
+        <line num="25" count="22" type="stmt"/>
+        <line num="27" count="22" type="stmt"/>
+        <line num="28" count="22" type="stmt"/>
+        <line num="30" count="22" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
       </file>
     </package>
@@ -289,23 +289,23 @@
       <file name="useLS.tsx" path="C:\PC\JS\ReactRS\src\hooks\useLS.tsx">
         <metrics statements="19" coveredstatements="19" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="3" count="21" type="cond" truecount="1" falsecount="0"/>
-        <line num="4" count="21" type="cond" truecount="1" falsecount="0"/>
+        <line num="3" count="22" type="cond" truecount="1" falsecount="0"/>
+        <line num="4" count="22" type="cond" truecount="1" falsecount="0"/>
         <line num="5" count="9" type="stmt"/>
         <line num="6" count="9" type="cond" truecount="0" falsecount="1"/>
         <line num="7" count="9" type="stmt"/>
-        <line num="9" count="21" type="stmt"/>
-        <line num="11" count="21" type="cond" truecount="1" falsecount="0"/>
+        <line num="9" count="22" type="stmt"/>
+        <line num="11" count="22" type="cond" truecount="1" falsecount="0"/>
         <line num="12" count="10" type="cond" truecount="1" falsecount="0"/>
         <line num="13" count="10" type="stmt"/>
         <line num="14" count="10" type="stmt"/>
-        <line num="15" count="21" type="stmt"/>
-        <line num="17" count="21" type="cond" truecount="1" falsecount="0"/>
+        <line num="15" count="22" type="stmt"/>
+        <line num="17" count="22" type="cond" truecount="1" falsecount="0"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
-        <line num="22" count="21" type="stmt"/>
-        <line num="23" count="21" type="stmt"/>
+        <line num="22" count="22" type="stmt"/>
+        <line num="23" count="22" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
       </file>
     </package>
