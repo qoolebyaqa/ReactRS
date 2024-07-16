@@ -10,6 +10,7 @@
     "strict": true,
     "noEmit": true,
     "types": ["vitest/globals"],
+    "allowJs": true
   },
   "include": ["vite.config.ts"]
 }

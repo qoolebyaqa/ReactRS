@@ -23,7 +23,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals"],    
+    "allowJs": true,
   },
   "include": ["src", ".src/test/setup.ts"]
 }

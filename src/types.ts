@@ -1,12 +1,18 @@
+import store from "./store";
+
+export type GlobalStateType = ReturnType<typeof store.getState>;
+
 
 export interface IAppState {
+  items: {
+    pokemonsQuery: IPokeItem[] | null;
+    pokemons: IPokeItem[] | null;
+    totalPokemons: IPokeItem[] | null;
+  }
+  currentPage: number
   searchValue: string;
-  pokemonsQuery: IPokeItem[] | null;
-  pokemons: IPokeItem[] | null;
-  totalPokemons: IPokeItem[] | null;
   errorCreator: boolean;
   loading: boolean;
-  currentPage: number
 }
 
 export interface IPokeItem {
