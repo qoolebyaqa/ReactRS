@@ -13,8 +13,12 @@ const PokeSlice = createSlice({
     searchValue: '',
     errorCreator: false,
     loading: false,
+    theme: false,
   } as IAppState,
   reducers: {
+    toogleTheme(state, bool) {
+      state.theme = bool.payload
+    },
     setItems(state, items) {
       const pokemonsUnderQuery = localStorage.currentSearch ? 
       items.payload.filter((pokemon: IPokeItem) => pokemon.name.includes(localStorage.currentSearch)) : 

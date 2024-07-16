@@ -13,6 +13,7 @@ export interface IAppState {
   searchValue: string;
   errorCreator: boolean;
   loading: boolean;
+  theme: boolean
 }
 
 export interface IPokeItem {

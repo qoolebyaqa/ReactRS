@@ -7,6 +7,7 @@ import Pagination from './Pagination';
 import {  useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { pokeActions } from '../store';
+import SwitchComponent from './SwitchComponent';
 
 function MainComponent() {
   const loadIndicator = useSelector((state: GlobalStateType) => state.PokeStore.loading)
@@ -20,6 +21,7 @@ function MainComponent() {
   if (Number(searchQuery) > 15 || !Number(searchQuery)) {
     throw new Error('The page is not exist')
   }
+
 
   const fetchData = useCallback(async() => {
     dispatch(pokeActions.setLoading(true));
@@ -53,6 +55,7 @@ function MainComponent() {
   return (
     <div>
       <h1>Hooks and routing</h1>
+      <SwitchComponent selectedDefaultTitle='Light' unselectedTitle='Dark' inputName='Toggle theme' selectedStyles='selected' unselectedStyles='unselected'/>
       <button onClick={handleError} id="errButon">
         Throw an error!
       </button>
