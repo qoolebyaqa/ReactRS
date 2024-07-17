@@ -13,7 +13,8 @@ export interface IAppState {
   searchValue: string;
   errorCreator: boolean;
   loading: boolean;
-  theme: boolean
+  theme: boolean;
+  selectedItems: IPokeItem[] | [];
 }
 
 export interface IPokeItem {

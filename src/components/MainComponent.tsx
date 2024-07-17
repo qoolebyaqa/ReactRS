@@ -6,14 +6,18 @@ import { GlobalStateType, IPokeItem } from '../types';
 import Pagination from './Pagination';
 import {  useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { pokeActions } from '../store';
 import SwitchComponent from './SwitchComponent';
+import SelectedFlyoutEl from './SelectedFlyoutEl';
+import { pokeActions } from '../store/PokeSlice';
+import { pageActions } from '../store/PageSlice';
 
 function MainComponent() {
   const loadIndicator = useSelector((state: GlobalStateType) => state.PokeStore.loading)
   const errorCreator = useSelector((state: GlobalStateType) => state.PokeStore.errorCreator)
   const items = useSelector((state: GlobalStateType) => state.PokeStore.items)
-  const currentPage = useSelector((state: GlobalStateType) => state.PokeStore.currentPage)
+  const currentPage = useSelector((state: GlobalStateType) => state.PageStore.currentPage)
+  const selectedItems = useSelector((state: GlobalStateType) => state.PokeStore.selectedItems);
+  
   const dispatch = useDispatch();
   const [searchParams, setSearchParms] = useSearchParams();
 
@@ -35,16 +39,16 @@ function MainComponent() {
   }, [currentPage, fetchData]);
 
   async function handleNextPage() {
-    dispatch(pokeActions.changePage('next'))
+    dispatch(pageActions.changePage('next'))
     setSearchParms({page: (currentPage+1).toString()})
   }
   async function handlePrevPage() {
-    dispatch(pokeActions.changePage('prev'))
+    dispatch(pageActions.changePage('prev'))
     setSearchParms({page: (currentPage-1).toString()})
   }
   function updateData() {
     setSearchParms({page: '1'});
-    dispatch(pokeActions.changePage('restore'))
+    dispatch(pageActions.changePage('restore'))
   }
   function handleError() {
     dispatch(pokeActions.setError(true));
@@ -54,7 +58,7 @@ function MainComponent() {
   }
   return (
     <div>
-      <h1>Hooks and routing</h1>
+      <h1 style={{margin: '10px'}}>Hooks and routing</h1>
       <SwitchComponent selectedDefaultTitle='Light' unselectedTitle='Dark' inputName='Toggle theme' selectedStyles='selected' unselectedStyles='unselected'/>
       <button onClick={handleError} id="errButon">
         Throw an error!
@@ -69,6 +73,7 @@ function MainComponent() {
           <Pagination onNext={handleNextPage} onPrev={handlePrevPage} currentPage={currentPage} totalLength={items.pokemonsQuery ? items.pokemonsQuery.length : 0}/>}
         </>
       )}
+      {selectedItems.length > 0 && <SelectedFlyoutEl />}
     </div>
   );
 }

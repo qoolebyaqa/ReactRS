@@ -6,7 +6,7 @@ import { getPokemons } from './api';
 import { GlobalStateType, IPokeItem } from './types';
 import { createContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { pokeActions } from './store';
+import { pokeActions } from './store/PokeSlice';
 
 export const MyThemeContext = createContext({theme: false, updateTheme: (a: boolean) => {a}});
 

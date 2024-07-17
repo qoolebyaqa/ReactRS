@@ -82,3 +82,14 @@ button:disabled {
   color: black;
   background-color: cadetblue;
 }
+
+.animateEL {
+  animation: flyOutEl 0.6s ease-in-out forwards;
+}
+
+@keyframes flyOutEl {
+  25% {transform: translateY(-20px)}
+  50% {transform: translateY(-10px)}
+  75% {transform: translateY(10px)}
+  100% {transform: translateY(0)}
+}
