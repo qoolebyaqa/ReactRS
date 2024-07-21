@@ -1,15 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { IAppState, IPokeItem } from "../types"
+import { IAppState } from "../types"
 
 const PokeSlice = createSlice({
   name: 'PokemonState',
   initialState: {
     items: {
-      pokemons: null,
       pokemonsQuery: [],
       totalPokemons: null, 
-    },        
-    currentPage: 1, 
+    },
+    pokemons: null,        
     searchValue: '',
     errorCreator: false,
     loading: false,
@@ -20,28 +19,14 @@ const PokeSlice = createSlice({
     toogleTheme(state, bool) {
       state.theme = bool.payload
     },
-    setItems(state, items) {
-      const pokemonsUnderQuery = localStorage.currentSearch ? 
-      items.payload.filter((pokemon: IPokeItem) => pokemon.name.includes(localStorage.currentSearch)) : 
-      items.payload
-      
-      state.items = {
-        totalPokemons: items.payload,
-        pokemonsQuery: [...pokemonsUnderQuery],
-        pokemons: pokemonsUnderQuery.slice((state.currentPage - 1) * 10, state.currentPage*10)
-      }
+    setItems(state, items) {      
+      state.items = items.payload
+    },
+    setPokemons(state, pokemons) {
+      state.pokemons = pokemons.payload;
     },
     setLoading(state, bool) {
       state.loading = bool.payload
-    },
-    changePage(state, type) {
-      if (type.payload === 'next') {
-        state.currentPage ++;
-      } else if (type.payload === 'prev') {
-        state.currentPage --;
-      } else {
-        state.currentPage = 1
-      }
     },
     setError(state, bool) {
       state.errorCreator = bool.payload;

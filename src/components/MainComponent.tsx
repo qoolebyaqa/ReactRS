@@ -1,7 +1,5 @@
-import { useCallback, useEffect } from 'react';
 import Pokelist from './Pokelist';
 import SearchComponent from './SearchComponent';
-import { getPokemons } from '../api';
 import { GlobalStateType, IPokeItem } from '../types';
 import Pagination from './Pagination';
 import {  useSearchParams } from 'react-router-dom';
@@ -10,33 +8,40 @@ import SwitchComponent from './SwitchComponent';
 import SelectedFlyoutEl from './SelectedFlyoutEl';
 import { pokeActions } from '../store/PokeSlice';
 import { pageActions } from '../store/PageSlice';
+import apiSlice from '../store/ApiSlice';
+import { useMemo } from 'react';
 
 function MainComponent() {
-  const loadIndicator = useSelector((state: GlobalStateType) => state.PokeStore.loading)
-  const errorCreator = useSelector((state: GlobalStateType) => state.PokeStore.errorCreator)
-  const items = useSelector((state: GlobalStateType) => state.PokeStore.items)
   const currentPage = useSelector((state: GlobalStateType) => state.PageStore.currentPage)
+  const { data: pokemonsFromApi, isSuccess, isFetching } = apiSlice.useGetTotalPokemonsQuery(150);
+  const errorCreator = useSelector((state: GlobalStateType) => state.PokeStore.errorCreator)
   const selectedItems = useSelector((state: GlobalStateType) => state.PokeStore.selectedItems);
   
   const dispatch = useDispatch();
   const [searchParams, setSearchParms] = useSearchParams();
 
+
+  const items = useMemo(() => {
+    if(isSuccess && pokemonsFromApi) {      
+      const pokemonsUnderQuery = localStorage.currentSearch ? 
+      pokemonsFromApi?.filter((pokemon: IPokeItem) => pokemon.name.includes(localStorage.currentSearch)) : 
+      pokemonsFromApi;
+      const itemsState = {
+        totalPokemons: pokemonsFromApi,
+        pokemonsQuery: localStorage.currentSearch ? 
+          pokemonsFromApi?.filter((pokemon: IPokeItem) => pokemon.name.includes(localStorage.currentSearch)) : 
+          pokemonsFromApi,
+        pokemons: pokemonsUnderQuery.slice((currentPage - 1) * 10, currentPage*10)
+      }
+      dispatch(pokeActions.setItems(itemsState));
+      return itemsState
+    }      
+  }, [isSuccess, pokemonsFromApi, currentPage, dispatch])
+
   const searchQuery = searchParams.get("page") || 1
   if (Number(searchQuery) > 15 || !Number(searchQuery)) {
     throw new Error('The page is not exist')
   }
-
-
-  const fetchData = useCallback(async() => {
-    dispatch(pokeActions.setLoading(true));
-    const pokemonsFromAPI: IPokeItem[] = await getPokemons();
-    dispatch(pokeActions.setItems(pokemonsFromAPI));
-    dispatch(pokeActions.setLoading(false));
-  }, [dispatch]);
-
-  useEffect(() => {    
-    fetchData();
-  }, [currentPage, fetchData]);
 
   async function handleNextPage() {
     dispatch(pageActions.changePage('next'))
@@ -58,19 +63,19 @@ function MainComponent() {
   }
   return (
     <div>
-      <h1 style={{margin: '10px'}}>Hooks and routing</h1>
+      <h1 style={{margin: '10px'}}>App state management</h1>
       <SwitchComponent selectedDefaultTitle='Light' unselectedTitle='Dark' inputName='Toggle theme' selectedStyles='selected' unselectedStyles='unselected'/>
       <button onClick={handleError} id="errButon">
         Throw an error!
       </button>
-      <SearchComponent pokemonsUpdater={currentPage === 1 ? fetchData : updateData } />
-      {loadIndicator ? (
+      <SearchComponent pokemonsUpdater={updateData } />
+      {isFetching ? (
         <p>Loading ... -_-</p>
       ) : (
         <>
-          {items.pokemons && <Pokelist items={items.pokemons} />}
-          {items.pokemonsQuery?.length !== 0 && 
-          <Pagination onNext={handleNextPage} onPrev={handlePrevPage} currentPage={currentPage} totalLength={items.pokemonsQuery ? items.pokemonsQuery.length : 0}/>}
+          {items?.pokemons && <Pokelist items={items?.pokemons} />}
+          {items?.pokemonsQuery?.length !== 0 && 
+          <Pagination onNext={handleNextPage} onPrev={handlePrevPage} currentPage={currentPage} totalLength={items?.pokemonsQuery ? items?.pokemonsQuery?.length : 0}/>}
         </>
       )}
       {selectedItems.length > 0 && <SelectedFlyoutEl />}

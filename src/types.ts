@@ -1,15 +1,14 @@
 import store from "./store";
 
 export type GlobalStateType = ReturnType<typeof store.getState>;
-
+export type RootState = ReturnType<typeof store.getState>;
 
 export interface IAppState {
   items: {
     pokemonsQuery: IPokeItem[] | null;
-    pokemons: IPokeItem[] | null;
     totalPokemons: IPokeItem[] | null;
-  }
-  currentPage: number
+  };  
+  pokemons: IPokeItem[] | null;
   searchValue: string;
   errorCreator: boolean;
   loading: boolean;
@@ -32,4 +31,11 @@ export interface ISearchProp {
 
 export type itemsProps = {
   items: IPokeItem[]
+}
+
+export interface IResponse {
+  count: number,
+  next: null | string,
+  previous: null | string,
+  results: IPokeItem[]
 }
