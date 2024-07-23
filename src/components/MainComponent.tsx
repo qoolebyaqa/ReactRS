@@ -9,11 +9,12 @@ import SelectedFlyoutEl from './SelectedFlyoutEl';
 import { pokeActions } from '../store/PokeSlice';
 import { pageActions } from '../store/PageSlice';
 import apiSlice from '../store/ApiSlice';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 function MainComponent() {
   const currentPage = useSelector((state: GlobalStateType) => state.PageStore.currentPage)
   const { data: pokemonsFromApi, isSuccess, isFetching } = apiSlice.useGetTotalPokemonsQuery(150);
+  const searchValue = useSelector((state: GlobalStateType) => state.PokeStore.searchValue)
   const errorCreator = useSelector((state: GlobalStateType) => state.PokeStore.errorCreator)
   const selectedItems = useSelector((state: GlobalStateType) => state.PokeStore.selectedItems);
   
@@ -21,27 +22,31 @@ function MainComponent() {
   const [searchParams, setSearchParms] = useSearchParams();
 
 
+  const searchQuery = searchParams.get("page") || 1
+  if (Number(searchQuery) > 15 || !Number(searchQuery)) {
+    throw new Error('The page is not exist')
+  }
+  useEffect(() => {
+    if(localStorage.currentSearch) {
+      dispatch(pokeActions.setSearchVal(localStorage.currentSearch))
+    }
+    dispatch(pageActions.setPage(Number(searchQuery))); 
+  }, [searchQuery, dispatch])
+
   const items = useMemo(() => {
-    if(isSuccess && pokemonsFromApi) {      
+    if(isSuccess && pokemonsFromApi) {     
       const pokemonsUnderQuery = localStorage.currentSearch ? 
       pokemonsFromApi?.filter((pokemon: IPokeItem) => pokemon.name.includes(localStorage.currentSearch)) : 
       pokemonsFromApi;
       const itemsState = {
         totalPokemons: pokemonsFromApi,
-        pokemonsQuery: localStorage.currentSearch ? 
-          pokemonsFromApi?.filter((pokemon: IPokeItem) => pokemon.name.includes(localStorage.currentSearch)) : 
-          pokemonsFromApi,
+        pokemonsQuery: pokemonsUnderQuery,
         pokemons: pokemonsUnderQuery.slice((currentPage - 1) * 10, currentPage*10)
       }
-      dispatch(pokeActions.setItems(itemsState));
       return itemsState
     }      
-  }, [isSuccess, pokemonsFromApi, currentPage, dispatch])
+  }, [isSuccess, pokemonsFromApi, currentPage, searchValue])
 
-  const searchQuery = searchParams.get("page") || 1
-  if (Number(searchQuery) > 15 || !Number(searchQuery)) {
-    throw new Error('The page is not exist')
-  }
 
   async function handleNextPage() {
     dispatch(pageActions.changePage('next'))

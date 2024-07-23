@@ -6,9 +6,9 @@ export type RootState = ReturnType<typeof store.getState>;
 export interface IAppState {
   items: {
     pokemonsQuery: IPokeItem[] | null;
-    totalPokemons: IPokeItem[] | null;
-  };  
-  pokemons: IPokeItem[] | null;
+    totalPokemons: IPokeItem[] | null;  
+    pokemons: IPokeItem[] | null;
+  };
   searchValue: string;
   errorCreator: boolean;
   loading: boolean;

@@ -6,9 +6,9 @@ const PokeSlice = createSlice({
   initialState: {
     items: {
       pokemonsQuery: [],
-      totalPokemons: null, 
-    },
-    pokemons: null,        
+      totalPokemons: null,
+      pokemons: null, 
+    },        
     searchValue: '',
     errorCreator: false,
     loading: false,
@@ -22,11 +22,11 @@ const PokeSlice = createSlice({
     setItems(state, items) {      
       state.items = items.payload
     },
-    setPokemons(state, pokemons) {
-      state.pokemons = pokemons.payload;
-    },
     setLoading(state, bool) {
       state.loading = bool.payload
+    },
+    setSearchVal(state, str) {
+      state.searchValue = str.payload;
     },
     setError(state, bool) {
       state.errorCreator = bool.payload;

@@ -1,10 +1,14 @@
+import { useContext } from 'react';
 import { useParams } from 'react-router';
 import { Link, useSearchParams } from 'react-router-dom';
+import { MyThemeContext } from '../App';
 
 function DescriptionCard() {
   const params = useParams();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('page');
+  const {theme} = useContext(MyThemeContext);
+  
 
   return (
     
@@ -12,8 +16,8 @@ function DescriptionCard() {
       style={{
         border: 'solid 1px',
         borderRadius: '15px',
-        color: 'black',
-        background: 'white',
+        color: !theme ? 'black' : "#11e51f",
+        background: !theme ? 'white' : "#f1f1f1",
         padding: '5px',
         marginTop: '210px',
         height: '400px',

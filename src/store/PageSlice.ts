@@ -14,6 +14,9 @@ const PageSlice = createSlice({
       } else {
         state.currentPage = 1
       }
+    },
+    setPage(state, number) {
+      state.currentPage = number.payload;
     }
   }
 })

@@ -3,9 +3,8 @@ import { GlobalStateType } from "../types";
 import { pokeActions } from "../store/PokeSlice";
 
 function SelectedFlyoutEl() {
-  const selectedItems = useSelector((state: GlobalStateType) => state.PokeStore.selectedItems);
+  const selectedItems = useSelector((state: GlobalStateType) => state.PokeStore.selectedItems)
   const dispatch = useDispatch();
-
   function handleUnselect() {
     dispatch(pokeActions.clearSelectedItems())
   }
