@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { IAppState } from "../types"
+import { convertToCSV } from "../fnHelpers/fnHelpers"
 
 const PokeSlice = createSlice({
   name: 'PokemonState',
@@ -13,7 +14,8 @@ const PokeSlice = createSlice({
     errorCreator: false,
     loading: false,
     theme: false,
-    selectedItems: []
+    selectedItems: [],
+    blobUrl: ''
   } as IAppState,
   reducers: {
     toogleTheme(state, bool) {
@@ -40,6 +42,11 @@ const PokeSlice = createSlice({
     },
     clearSelectedItems(state) {
       state.selectedItems = [];
+    },
+    setBlob(state) {
+      const csv = convertToCSV(state.selectedItems);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      state.blobUrl = URL.createObjectURL(blob)
     }
   }
 })

@@ -4,15 +4,21 @@ import { pokeActions } from "../store/PokeSlice";
 
 function SelectedFlyoutEl() {
   const selectedItems = useSelector((state: GlobalStateType) => state.PokeStore.selectedItems)
+  const blobUrl = useSelector((state: GlobalStateType) => state.PokeStore.blobUrl)
   const dispatch = useDispatch();
   function handleUnselect() {
     dispatch(pokeActions.clearSelectedItems())
+  }
+
+  function downloadSelected (event: MouseEvent) {
+    event.preventDefault();
+    dispatch(pokeActions.setBlob())
   }
   return ( <div className="animateEL">
     <p>{selectedItems.length} items are selected</p>
     <div>
       <button onClick={handleUnselect} style={{marginRight: "20px"}}>Unselect All</button>
-      <button>Download</button>
+      <a href={blobUrl} download={`${selectedItems.length}_pokemons.csv`} onClick={() => downloadSelected}>Download</a>
     </div>
   </div> );
 }

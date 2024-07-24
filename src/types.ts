@@ -14,6 +14,7 @@ export interface IAppState {
   loading: boolean;
   theme: boolean;
   selectedItems: IPokeItem[] | [];
+  blobUrl: string
 }
 
 export interface IPokeItem {
