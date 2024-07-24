@@ -38,7 +38,10 @@ const PokeSlice = createSlice({
         state.selectedItems = [...state.selectedItems, item.payload]
       } else {
         state.selectedItems = state.selectedItems.filter(val => val.name !== item.payload.name)
-      }
+      }      
+      const csv = convertToCSV(state.selectedItems);
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      state.blobUrl = URL.createObjectURL(blob)
     },
     clearSelectedItems(state) {
       state.selectedItems = [];

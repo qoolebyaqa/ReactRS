@@ -4,17 +4,14 @@ export const convertToCSV = (data: IPokeItem[]): string => {
   if (!data.length) {
     return '';
   }
+  let dataToCSV = [...data];
+  const refinedData = []
+  const titleKeys = Object.keys(dataToCSV[0]);
+  titleKeys.unshift('sequence'); 
+  refinedData.push(titleKeys);
+  dataToCSV.forEach(item => {
+    refinedData.push([item.url.slice(item.url.indexOf('pokemon') + 8, -1), ...Object.values(item)])  
+  })
 
-  const csvRows: string[] = [];
-  const headers = Object.keys(data[0]);
-  csvRows.push(headers.join(','));
-  for (const row of data) {
-    const values = headers.map(header => {
-      const escaped = ('' + row[header as keyof IPokeItem]).replace(/"/g, '\\"');
-      return `"${escaped}"`;
-    });
-    csvRows.push(values.join(','));
-  }
-
-  return csvRows.join('\n');
+  return refinedData.reduce((acc, cur) => {return acc + cur.join(', ') + '\n'}, '');
 };

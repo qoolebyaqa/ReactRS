@@ -9,16 +9,11 @@ function SelectedFlyoutEl() {
   function handleUnselect() {
     dispatch(pokeActions.clearSelectedItems())
   }
-
-  function downloadSelected (event: MouseEvent) {
-    event.preventDefault();
-    dispatch(pokeActions.setBlob())
-  }
   return ( <div className="animateEL">
     <p>{selectedItems.length} items are selected</p>
     <div>
       <button onClick={handleUnselect} style={{marginRight: "20px"}}>Unselect All</button>
-      <a href={blobUrl} download={`${selectedItems.length}_pokemons.csv`} onClick={() => downloadSelected}>Download</a>
+      <button><a href={blobUrl} download={`${selectedItems.length}_pokemon${selectedItems.length > 1 ? 's' : ''}.csv`}>Download</a></button>
     </div>
   </div> );
 }
