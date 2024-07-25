@@ -9,6 +9,7 @@ export interface IAppState {
     totalPokemons: IPokeItem[] | null;  
     pokemons: IPokeItem[] | null;
   };
+  activeCard: object;
   searchValue: string;
   errorCreator: boolean;
   loading: boolean;

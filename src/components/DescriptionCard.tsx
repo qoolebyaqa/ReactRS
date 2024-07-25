@@ -1,13 +1,20 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { Link, useSearchParams } from 'react-router-dom';
 import { MyThemeContext } from '../App';
+import { useDispatch } from 'react-redux';
+import { pokeActions } from '../store/PokeSlice';
 
 function DescriptionCard() {
   const params = useParams();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('page');
+  const dispatch = useDispatch();
   const {theme} = useContext(MyThemeContext);
+
+  useEffect(() => {
+    dispatch(pokeActions.setActiveCard(params))
+  }, [dispatch, params])
   
 
   return (

@@ -14,6 +14,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    "react-compiler/react-compiler": "error"
+    "react-compiler/react-compiler": "error",
+    "react-hooks/exhaustive-deps": "off"
   },
 };

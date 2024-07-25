@@ -4,7 +4,7 @@ export const convertToCSV = (data: IPokeItem[]): string => {
   if (!data.length) {
     return '';
   }
-  let dataToCSV = [...data];
+  const dataToCSV = [...data];
   const refinedData = []
   const titleKeys = Object.keys(dataToCSV[0]);
   titleKeys.unshift('sequence'); 
