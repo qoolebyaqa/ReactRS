@@ -21,7 +21,7 @@ function Pokeitem(itemsProps: itemsProps) {
 
   return (
     <li style={{ display: 'flex', justifyContent: 'left' }}  data-testid="pokelist-item">
-      <input type="checkbox" onChange={handleSelection} checked={!!selectedItems.find(val => val.name === itemsProps.item.name)}/>
+      <input type="checkbox" onChange={handleSelection} checked={!!selectedItems.find(val => val.name === itemsProps.item.name)} role={`checkbox${itemsProps.item.name}`}/>
       <Link to={`${itemsProps.item.name}?page=${searchQuery}`}>
         <button
           style={{ width: '150px', margin: '2px 0', marginRight: '20px' }}          

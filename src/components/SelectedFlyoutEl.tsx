@@ -13,7 +13,7 @@ function SelectedFlyoutEl() {
     <p>{selectedItems.length} items are selected</p>
     <div>
       <button onClick={handleUnselect} style={{marginRight: "20px"}}>Unselect All</button>
-      <button><a href={blobUrl} download={`${selectedItems.length}_pokemon${selectedItems.length > 1 ? 's' : ''}.csv`}>Download</a></button>
+      <a href={blobUrl} download={`${selectedItems.length}_pokemon${selectedItems.length > 1 ? 's' : ''}.csv`}><button>Download</button></a>
     </div>
   </div> );
 }
