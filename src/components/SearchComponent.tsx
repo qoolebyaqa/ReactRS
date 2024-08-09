@@ -1,35 +1,53 @@
-import { ISearchProp } from '../types';
-import useLS from '../hooks/useLS';
-import { useDispatch } from 'react-redux';
-import { pokeActions } from '../store/PokeSlice';
 
-function SearchComponent(props: ISearchProp) {
-  const [query, setQueryLS] = useLS('currentSearch', '');
-  const dispatch = useDispatch();
-  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setQueryLS(event.target.value);
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import SwitchComponent from './SwitchComponent';
+
+interface IURL {
+  pathname: string,
+  query: {
+    search?: string,
+    page: number
+  }
+}
+
+function SearchComponent() {
+  const router = useRouter();
+  const [searchValue, setSearchValue] = useState<string>('');
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchValue(e.target.value);
   }
 
+  useEffect(() => {
+    if(router.query.search) setSearchValue(String(router.query.search))
+  }, [router.query.search])
+
   function handleSearch() {
-    localStorage.setItem('currentSearch', query.toLowerCase());
-    dispatch(pokeActions.setSearchVal(query.toLowerCase()))
-    props.pokemonsUpdater();
+    const updatedURL: IURL = {
+      pathname: router.pathname,
+      query: {...router.query, search: searchValue, page: 1}
+    }
+    if (searchValue === '') {
+      delete updatedURL.query.search
+    }
+    router.push(updatedURL);
   }
 
   return (
-    <section>
-      <label htmlFor="search"></label>
+    <>
+      <SwitchComponent inputName='Theme changer' selectedDefaultTitle='Dark' unselectedTitle='Light' selectedStyles='selected' unselectedStyles='unselected'/>
+      <label htmlFor="search"/>
       <input
-        type="text"
+        type="search"
         name="search"
         placeholder="Choose your pokemon!"
-        value={query}
+        value={searchValue}
         onChange={handleInputChange}
       />
       <button type="button" onClick={handleSearch}>
         SEARCH
       </button>
-    </section>
+    </>
   );
 }
 

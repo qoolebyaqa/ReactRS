@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { MyThemeContext } from "../App";
+import { useRouter } from "next/router";
+import { useState } from "react";
 interface ISwitchProps {
   selectedDefaultTitle: string, 
   selectedStyles: string, 
@@ -9,18 +9,26 @@ interface ISwitchProps {
 }
 
 function SwitchComponent({selectedDefaultTitle, selectedStyles, unselectedTitle, unselectedStyles, inputName}: ISwitchProps) {
-  const {theme, updateTheme} = useContext(MyThemeContext);
+  const router = useRouter();
+  function queryControl(theme: string) {
+    const updatedURL = {
+      pathname: router.pathname,
+      query: {...router.query, theme: theme}
+    }
+    router.push(updatedURL)
+  }
+  const [theme, setTheme] = useState<string>(router.query.theme?.toString() || 'light')
   return (
     <>
-      <div className="hidden">
+      <div style={{visibility: "hidden"}}>
         <label htmlFor={inputName}>
-          <input type="checkbox" name={inputName} id={inputName} checked={theme} onChange={() => {}}/>
-          <input type="checkbox" name={inputName} id={inputName + '1'} checked={!theme} onChange={() => {}}/>
+          <input type="checkbox" name={inputName} id={inputName} checked={theme === 'light'} onChange={() => {}}/>
+          <input type="checkbox" name={inputName} id={inputName + '1'} checked={theme === 'dark'} onChange={() => {}}/>
         </label>
       </div>
-      <div className="flex justify-center w-full">
-        <button className={`rounded-r-xl w-2/4 ${!theme ? selectedStyles : unselectedStyles}`}  onClick={() => updateTheme(false)}>{unselectedTitle}</button>
-        <button className={`rounded-l-xl w-2/4 ${theme ? selectedStyles : unselectedStyles}`} onClick={() => updateTheme(true)}>{selectedDefaultTitle}</button>
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <button className={`${theme === 'light' ? selectedStyles : unselectedStyles}`}  onClick={() => {setTheme('light'); queryControl('light')}}>{unselectedTitle}</button>
+        <button className={`${theme === 'dark' ? selectedStyles : unselectedStyles}`} onClick={() => {setTheme('dark'); queryControl('dark')}}>{selectedDefaultTitle}</button>
       </div>
     </>
   );

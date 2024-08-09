@@ -10,7 +10,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import store from "../store";
-import App from "../App";
+import App from "../../some/App";
 import { convertToCSV } from "../fnHelpers/fnHelpers";
 import { IAppState, IPokeItem } from "../types";
 import ErrorBoundary from "../components/ErrorBoundary";
@@ -231,7 +231,6 @@ describe('PokeSlice', () => {
     expect(newState.selectedItems).toContain(item);
     expect(newState.blobUrl).toBe('mockedBlobURL');
 
-    // Проверка повторного добавления и удаления
     const newState2 = PokeSlice(newState, pokeActions.setSelectedItems(item));
     expect(newState2.selectedItems).not.toContain(item);
   });

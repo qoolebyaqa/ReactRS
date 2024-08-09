@@ -32,7 +32,8 @@ export interface ISearchProp {
 }
 
 export type itemsProps = {
-  items: IPokeItem[]
+  items: IPokeItem[],
+  totalLength: number
 }
 
 export interface IResponse {

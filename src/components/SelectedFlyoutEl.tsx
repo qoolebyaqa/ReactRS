@@ -1,19 +1,37 @@
-import { useDispatch, useSelector } from "react-redux";
-import { GlobalStateType } from "../types";
-import { pokeActions } from "../store/PokeSlice";
+import { useRouter } from "next/router";
+import { IPokeItem } from "../types";
+import { convertToCSV } from "../fnHelpers/fnHelpers";
+import LinkComponent from "./LinkComponents";
 
-function SelectedFlyoutEl() {
-  const selectedItems = useSelector((state: GlobalStateType) => state.PokeStore.selectedItems)
-  const blobUrl = useSelector((state: GlobalStateType) => state.PokeStore.blobUrl)
-  const dispatch = useDispatch();
+function SelectedFlyoutEl({allItems}:{allItems: IPokeItem[]}) {
+  const router = useRouter();
+  const itemsToDownload:IPokeItem[] = [];
+  if (router.query.checked) {
+    const selectedFromURL:string[] =  JSON.parse(router.query.checked as string)
+    selectedFromURL.forEach((val:string) => {
+      const itemToPush = allItems.find(item => item.name===val)
+      if (itemToPush) itemsToDownload.push(itemToPush);
+    })
+  }  
+  const csv = convertToCSV(itemsToDownload);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+
   function handleUnselect() {
-    dispatch(pokeActions.clearSelectedItems())
+    const updatedURL = {
+      pathname: router.pathname,
+      query: {
+        ...router.query
+      }
+    }
+    delete updatedURL.query.checked;
+    router.push(updatedURL)
   }
-  return ( <div className="animateEL">
-    <p>{selectedItems.length} items are selected</p>
+  return ( <div  className={`animateEL ${router.query.theme === 'dark' ? 'dark' : ''}`}>
+    <p>{itemsToDownload.length} items are selected</p>
     <div>
       <button onClick={handleUnselect} style={{marginRight: "20px"}}>Unselect All</button>
-      <a href={blobUrl} download={`${selectedItems.length}_pokemon${selectedItems.length > 1 ? 's' : ''}.csv`}><button>Download</button></a>
+      <LinkComponent file={blob} download={`${itemsToDownload.length}_pokemon${itemsToDownload.length > 1 ? 's' : ''}.csv`}>
+      <button>Download</button></LinkComponent>
     </div>
   </div> );
 }

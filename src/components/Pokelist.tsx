@@ -1,5 +1,6 @@
 import Pokeitem from './Pokeitem';
 import { itemsProps } from '../types';
+import Pagination from './Pagination';
 
 function Pokelist(itemsProps: itemsProps) {
   return (
@@ -17,13 +18,14 @@ function Pokelist(itemsProps: itemsProps) {
             }}
           >
             {itemsProps.items.map((pokemon) => (
-              <Pokeitem item={pokemon} key={pokemon.url} />
+              <Pokeitem item={pokemon} key={pokemon.url} allItems={itemsProps.items}/>
             ))}
           </ul>
         </>
       ) : (
         <p>no items available</p>
       )}
+      <Pagination totalLength={itemsProps.totalLength}/>
     </div>
   );
 }
