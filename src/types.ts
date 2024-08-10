@@ -1,7 +1,3 @@
-import store from "./store";
-
-export type GlobalStateType = ReturnType<typeof store.getState>;
-export type RootState = ReturnType<typeof store.getState>;
 
 export interface IAppState {
   items: {
@@ -41,4 +37,16 @@ export interface IResponse {
   next: null | string,
   previous: null | string,
   results: IPokeItem[]
+}
+
+export interface Iquery {
+  search?: string,
+  page?: number,
+  checked?: string,
+  theme?: string
+}
+
+export interface IURL {
+  pathname: string,
+  query: Iquery
 }

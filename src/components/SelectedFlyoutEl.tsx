@@ -1,13 +1,15 @@
-import { useRouter } from "next/router";
-import { IPokeItem } from "../types";
-import { convertToCSV } from "../fnHelpers/fnHelpers";
+'use client'
+import { IPokeItem, Iquery, IURL } from "../types";
+import { collectURL, convertToCSV } from "../fnHelpers/fnHelpers";
 import LinkComponent from "./LinkComponents";
+import { usePathname, useRouter } from "next/navigation";
 
-function SelectedFlyoutEl({allItems}:{allItems: IPokeItem[]}) {
+function SelectedFlyoutEl({allItems, searchParams}:{allItems: IPokeItem[], searchParams?: Iquery}) {
   const router = useRouter();
+  const pathname = usePathname();
   const itemsToDownload:IPokeItem[] = [];
-  if (router.query.checked) {
-    const selectedFromURL:string[] =  JSON.parse(router.query.checked as string)
+  if (searchParams?.checked) {
+    const selectedFromURL:string[] =  JSON.parse(searchParams.checked as string)
     selectedFromURL.forEach((val:string) => {
       const itemToPush = allItems.find(item => item.name===val)
       if (itemToPush) itemsToDownload.push(itemToPush);
@@ -17,16 +19,18 @@ function SelectedFlyoutEl({allItems}:{allItems: IPokeItem[]}) {
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
 
   function handleUnselect() {
-    const updatedURL = {
-      pathname: router.pathname,
-      query: {
-        ...router.query
-      }
+    const updatedURL: IURL = {
+      pathname: pathname,
+      query: {}
     }
-    delete updatedURL.query.checked;
-    router.push(updatedURL)
+    if(searchParams?.page) updatedURL.query.page = Number(searchParams?.page);
+    if(searchParams?.search) updatedURL.query.search = String(searchParams?.search);
+    if(searchParams?.theme) updatedURL.query.theme = String(searchParams?.theme)
+    delete updatedURL.query.checked
+    router.push(collectURL(updatedURL));
+    router.refresh();
   }
-  return ( <div  className={`animateEL ${router.query.theme === 'dark' ? 'dark' : ''}`}>
+  return ( <div  className={`animateEL ${searchParams?.theme === 'dark' ? 'dark' : ''}`}>
     <p>{itemsToDownload.length} items are selected</p>
     <div>
       <button onClick={handleUnselect} style={{marginRight: "20px"}}>Unselect All</button>

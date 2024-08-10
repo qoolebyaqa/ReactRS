@@ -1,36 +1,34 @@
-
+'use client'
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import SwitchComponent from './SwitchComponent';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { IURL } from '../types';
+import { collectURL } from '../fnHelpers/fnHelpers';
 
-interface IURL {
-  pathname: string,
-  query: {
-    search?: string,
-    page: number
-  }
-}
 
 function SearchComponent() {
+  const query = useSearchParams();
+  const pathname = usePathname();
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>('');
+  const search = query.get("search");
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value);
   }
 
   useEffect(() => {
-    if(router.query.search) setSearchValue(String(router.query.search))
-  }, [router.query.search])
+    if(search) setSearchValue(String(search))
+  }, [search])
 
   function handleSearch() {
     const updatedURL: IURL = {
-      pathname: router.pathname,
-      query: {...router.query, search: searchValue, page: 1}
+      pathname: pathname,
+      query: {search: searchValue, page: 1}
     }
-    if (searchValue === '') {
-      delete updatedURL.query.search
-    }
-    router.push(updatedURL);
+    if(query.get('checked')) updatedURL.query.checked = String(query.get('checked'))
+    if(query.get('theme')) updatedURL.query.theme = String(query.get('theme'))
+    router.push(collectURL(updatedURL));
+    router.refresh()
   }
 
   return (

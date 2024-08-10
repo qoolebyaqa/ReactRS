@@ -1,5 +1,7 @@
+'use client'
 import { IPokeItem } from '../types';
-import { useRouter } from 'next/router';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { collectURL } from '../fnHelpers/fnHelpers';
 
 type itemsProps = {
   item: IPokeItem,
@@ -10,41 +12,50 @@ interface IUpdatedURL {
   query: {
     search?: string,
     page?: number,
-    checked?: string
+    checked?: string,
+    theme?: string
   }
 }
 
-function Pokeitem(itemsProps: itemsProps) {
-  const router = useRouter()
+function Pokeitem(itemsProps: itemsProps) {  
+  const query = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
 
   function handleSelection() {
-    const checkedArr = router.query.checked ? JSON.parse(router.query.checked as string) : [] ;
+    const checkedArr = query.get('checked') ? JSON.parse(query.get("checked") as string) : [] ;
     const checkedResult = checkedArr.includes(itemsProps.item.name) ? checkedArr.filter((val:string) => val !== itemsProps.item.name) : [...checkedArr, itemsProps.item.name];   
     const updatedURL: IUpdatedURL = {
-      pathname: router.pathname,
-      query: {...router.query, checked: JSON.stringify(checkedResult)}
+      pathname: pathname,
+      query: {checked: JSON.stringify(checkedResult)}
     }
-    if(checkedResult.length < 1) {
-      delete updatedURL.query.checked
-    }
-    router.push(updatedURL)
+    if(query.get('page')) updatedURL.query.page = Number(query.get('page'));
+    if(query.get('search')) updatedURL.query.search = String(query.get('search'));
+    if(query.get('theme')) updatedURL.query.theme = String(query.get('theme'))
+    router.push(collectURL(updatedURL))
+    router.refresh()
   }
 
   return (
     <li style={{ display: 'flex', justifyContent: 'left' }}>
-      <input type="checkbox" onChange={handleSelection} checked={router.query.checked ? JSON.parse(router.query.checked as string).includes(itemsProps.item.name) : false} role={`checkbox${itemsProps.item.name}`}/>
-      <button
-        style={{ width: '150px', margin: '2px 0', marginRight: '20px' }}
-        onClick={() => {
-          const updatedURL = {
-            pathname: `${itemsProps.item.name}`,
-            query: {...router.query}
-          }
-          if(updatedURL.query.name) delete updatedURL.query.name
-          router.push(updatedURL)}}
-      >
-        {itemsProps.item.name}
-      </button>
+      <input type="checkbox" onChange={handleSelection} checked={query.get('checked') ? JSON.parse(query.get('checked') as string).includes(itemsProps.item.name) : false} role={`checkbox${itemsProps.item.name}`}/>
+        <button
+          style={{ width: '150px', margin: '2px 0', marginRight: '20px' }}
+          onClick={() => {            
+            const updatedURL: IUpdatedURL = {
+              pathname: `${itemsProps.item.name}`,
+              query: {}
+            }
+            if(query.get('page')) updatedURL.query.page = Number(query.get('page'));
+            if(query.get('search')) updatedURL.query.search = String(query.get('search'))
+            if(query.get('theme')) updatedURL.query.theme = String(query.get('theme'))
+            if(query.get('checked')) updatedURL.query.checked = String(query.get('checked'))
+            router.push(collectURL(updatedURL))
+            router.refresh()
+          }}
+        >
+          {itemsProps.item.name}
+        </button>
     </li>
   );
 }

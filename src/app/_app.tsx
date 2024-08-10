@@ -1,6 +1,6 @@
 import { AppProps } from 'next/app';
-import '../index.css';
 import { NextComponentType, NextPageContext } from 'next';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextComponentType<NextPageContext> & {
@@ -11,7 +11,9 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
-    <Component {...pageProps} />
+    <ErrorBoundary>
+      <Component {...pageProps} />
+    </ErrorBoundary>
   );
 }
 

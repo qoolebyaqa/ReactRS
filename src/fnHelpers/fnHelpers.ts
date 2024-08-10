@@ -1,4 +1,4 @@
-import { IPokeItem } from "../types";
+import { IPokeItem, IURL } from "../types";
 
 export const convertToCSV = (data: IPokeItem[]): string => {
   if (!data.length) {
@@ -16,14 +16,9 @@ export const convertToCSV = (data: IPokeItem[]): string => {
   return refinedData.reduce((acc, cur) => {return acc + cur.join(', ') + '\n'}, '');
 };
 
-export function collectURL(subpage:string | undefined=undefined, search:string | undefined=undefined, page:string | undefined=undefined) {
-  let resultUrl = ''
-  if (subpage) resultUrl += `${subpage}`
-  if (search || page) {
-    resultUrl += `?`
-    if (search) resultUrl += `search=${search}`;
-    if (page) resultUrl += `page=${page}`;
-  }
-  return resultUrl;
+export function collectURL(obj: IURL) {
+  const queryToChange = {...obj.query}
+  let queryStr = '?' + Object.entries(queryToChange).map(val => val.join('=')).join('&')
+  return `${obj.pathname}/${queryStr}`
 }
 
