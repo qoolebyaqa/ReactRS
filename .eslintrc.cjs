@@ -5,16 +5,12 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
+    "next/core-web-vitals",
+    "next"
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', "react-compiler"],
+  plugins: ['react-hooks'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
-    "react-compiler/react-compiler": "error",
-    "react-hooks/exhaustive-deps": "off",
   },
 };

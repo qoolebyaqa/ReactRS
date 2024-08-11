@@ -1,19 +1,20 @@
 import SearchComponent from './SearchComponent';
 import Pokelist from './Pokelist';
-import { IPokeItem } from '../types';
-import { useRouter } from 'next/router';
+import { IPokeItem, Iquery } from '../types';
 import SelectedFlyoutEl from './SelectedFlyoutEl';
 
 export default function SpecialLayout({
   children,
   items,
+  query,
 }: {
   children: React.ReactNode;
   items: IPokeItem[];
+  query?: Iquery;
 }) {
-  const router = useRouter();
-  const searchParam = router.query.search?.toString();
-  const pageParam = router.query.page?.toString();
+  const searchParam = query?.search?.toString();
+  const pageParam = query?.page?.toString();
+  const themeParam = query?.theme?.toString();
   const totalRenderedElems = searchParam ?  items.filter(pokemon => pokemon.name.includes(searchParam)) : items
   const filtredItems = searchParam && pageParam ? 
   items.filter(pokemon => pokemon.name.includes(searchParam)).slice((Number(pageParam) - 1) * 10, 10 * Number(pageParam)) :
@@ -22,14 +23,14 @@ export default function SpecialLayout({
   items.slice(0, 10);
   return (
     <main>
-      <header className={`${router.query.theme === 'dark' ? 'dark' : ''}`}>
+      <header className={`${themeParam === 'dark' ? 'dark' : ''}`}>
         <h1 style={{ padding: '10px' }}>Migration to NextJS</h1>
         <SearchComponent />
       </header>
       <main
         style={{
-          color: router.query.theme === 'dark' ? 'black' : "#11e51f",
-          background: router.query.theme === 'light' ? 'white' : "#c9f9f9",
+          color: themeParam=== 'dark' ? 'black' : "#11e51f",
+          background: themeParam === 'dark' ? "#c9f9f9": 'white',
         }}
       >
         <div
@@ -42,7 +43,7 @@ export default function SpecialLayout({
         <Pokelist items={filtredItems} totalLength={totalRenderedElems.length} />
         {children}
         </div>
-      {router.query.checked && <SelectedFlyoutEl allItems={items}/>}
+      {query?.checked && <SelectedFlyoutEl allItems={items}/>}
       </main>
     </main>
   );

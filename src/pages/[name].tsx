@@ -1,21 +1,30 @@
-import { getStaticPaths, getStaticProps } from "../fnHelpers/serverHelpers";
-import { IPokeItem } from "../types";
+import { IPokeItem, Iquery, IResponse } from "../types";
 import SpecialLayout from "../components/SpecialLayout";
-import { useRouter } from 'next/router';
+import CloseDescriptionBtn from "../components/CloseDescriptionBtn";
+import { GetServerSidePropsContext } from "next";
 
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const { query, params } = context;
+  const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=150');
+  const pokemons: IResponse = await res.json();
+  if (!params?.name) {
+    return {
+      notFound: true, 
+    };
+  }
+  return { props: { query, name: params.name, pokemons: pokemons.results } };
+};
 
-
-function DescriptionCard({ name, pokemons }: {name: string, pokemons: IPokeItem[]}) {
-  const router = useRouter()
+function DescriptionCard({ query, name, pokemons }: {query: Iquery , name: string, pokemons: IPokeItem[]}) {
 
   return (    
-    <SpecialLayout items={pokemons}>
+    <SpecialLayout items={pokemons} query={query}>
     <div
       style={{
         border: 'solid 1px',
         borderRadius: '15px',
-        color: router.query.theme === 'dark' ? 'black' : "#11e51f",
-        background: router.query.theme === 'dark' ? 'white' : "#f1f1f1",
+        color: query.theme === 'dark' ? 'black' : "#11e51f",
+        background: query.theme === 'dark' ? 'white' : "#f1f1f1",
         padding: '5px',
         marginTop: '210px',
         height: '400px',
@@ -32,17 +41,10 @@ function DescriptionCard({ name, pokemons }: {name: string, pokemons: IPokeItem[
         style={{ width: '100px', height: '100px' }}
       />
       <div style={{ marginTop: '30px' }}>
-        <button onClick={() => {
-          const updatedURL = {
-            pathname: '/',
-            query: {...router.query}
-          }
-          delete updatedURL.query.name
-          router.push(updatedURL)}} >Close the Description</button>
+        <CloseDescriptionBtn />
       </div>
     </div></SpecialLayout>
   );
 }
 
-export { getStaticPaths, getStaticProps }
 export default DescriptionCard;
