@@ -18,7 +18,7 @@ export const convertToCSV = (data: IPokeItem[]): string => {
 
 export function collectURL(obj: IURL) {
   const queryToChange = {...obj.query}
-  let queryStr = '?' + Object.entries(queryToChange).map(val => val.join('=')).join('&')
+  const queryStr = '?' + Object.entries(queryToChange).map(val => val.join('=')).join('&')
   return `${obj.pathname}/${queryStr}`
 }
 

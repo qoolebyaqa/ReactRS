@@ -2,14 +2,15 @@
 import { IPokeItem, Iquery, IURL } from "../types";
 import { collectURL, convertToCSV } from "../fnHelpers/fnHelpers";
 import LinkComponent from "./LinkComponents";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function SelectedFlyoutEl({allItems, searchParams}:{allItems: IPokeItem[], searchParams?: Iquery}) {
   const router = useRouter();
+  const query = useSearchParams();  
   const pathname = usePathname();
   const itemsToDownload:IPokeItem[] = [];
-  if (searchParams?.checked) {
-    const selectedFromURL:string[] =  JSON.parse(searchParams.checked as string)
+  if (query.get('checked')) {
+    const selectedFromURL:string[] =  JSON.parse(query.get('checked') as string)
     selectedFromURL.forEach((val:string) => {
       const itemToPush = allItems.find(item => item.name===val)
       if (itemToPush) itemsToDownload.push(itemToPush);
@@ -23,9 +24,9 @@ function SelectedFlyoutEl({allItems, searchParams}:{allItems: IPokeItem[], searc
       pathname: pathname,
       query: {}
     }
-    if(searchParams?.page) updatedURL.query.page = Number(searchParams?.page);
-    if(searchParams?.search) updatedURL.query.search = String(searchParams?.search);
-    if(searchParams?.theme) updatedURL.query.theme = String(searchParams?.theme)
+    if(query.get('page')) updatedURL.query.page = Number(searchParams?.page);
+    if(query.get('search')) updatedURL.query.search = String(searchParams?.search);
+    if(query.get('theme')) updatedURL.query.theme = String(searchParams?.theme)
     delete updatedURL.query.checked
     router.push(collectURL(updatedURL));
     router.refresh();
