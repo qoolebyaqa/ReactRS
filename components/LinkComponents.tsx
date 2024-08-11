@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from "react";
 
 function LinkComponent({file, download, children}:{file: Blob, download: string, children: React.ReactNode}) {

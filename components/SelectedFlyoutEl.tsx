@@ -29,7 +29,7 @@ function SelectedFlyoutEl({allItems}:{allItems: IPokeItem[]}) {
   return ( <div  className={`animateEL ${router.query.theme === 'dark' ? 'dark' : ''}`}>
     <p>{itemsToDownload.length} items are selected</p>
     <div>
-      <button onClick={handleUnselect} style={{marginRight: "20px"}}>Unselect All</button>
+      <button onClick={handleUnselect} style={{marginRight: "20px"}} data-testid='unselectALL'>Unselect All</button>
       <LinkComponent file={blob} download={`${itemsToDownload.length}_pokemon${itemsToDownload.length > 1 ? 's' : ''}.csv`}>
       <button>Download</button></LinkComponent>
     </div>

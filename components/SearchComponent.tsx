@@ -44,7 +44,7 @@ function SearchComponent() {
       <div style={{display: 'flex', justifyContent: 'center', gap: '40px', paddingBottom: '30px', paddingTop: '20px'}}>
       <button onClick={() => {
           setErrorInit(true)}
-        }  style={{backgroundColor: 'red'}}>Throw Error</button>
+        }  style={{backgroundColor: 'red'}}>Throw an error</button>
       <label htmlFor="search"/>
       <input
         type="search"
