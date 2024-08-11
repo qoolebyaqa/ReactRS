@@ -11,8 +11,7 @@
     "lint": "next lint . --ext ts,tsx",
     "format:fix": "prettier . --write . --ext ts,tsx",
     "prepare": "husky",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test": "jest"
   },
   "dependencies": {
     "next": "^14.2.5",
