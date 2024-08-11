@@ -45,7 +45,7 @@ export default async function RootLayout({
       <div
         style={{
           color: themeParam === 'dark' ? 'black' : "#11e51f",
-          background: themeParam === 'light' ? 'white' : "#c9f9f9",
+          background: themeParam === 'dark' ?  "#c9f9f9" : 'white',
           height: '100vh'
         }}
       >
