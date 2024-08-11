@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.57% </span>
+                <span class="strong">75.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/33</span>
+                <span class='fraction'>25/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.57% </span>
+                <span class="strong">75.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/33</span>
+                <span class='fraction'>25/33</span>
             </div>
         
             
@@ -107,24 +107,24 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">'use client'
@@ -138,10 +138,10 @@ interface ErrorBoundaryState {
 }
 &nbsp;
 class ErrorBoundary extends Component&lt;ErrorBoundaryProps, ErrorBoundaryState&gt; {
-<span class="fstat-no" title="function not covered" >  constructor(props:ErrorBoundaryProps) {</span>
-<span class="cstat-no" title="statement not covered" >    super(props);</span>
-<span class="cstat-no" title="statement not covered" >    this.state = { error: null };</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+  constructor(props:ErrorBoundaryProps) {
+    super(props);
+    this.state = { error: null };
+  }
   
 <span class="fstat-no" title="function not covered" >  componentDidCatch(error: Error) {</span>
 <span class="cstat-no" title="statement not covered" >    this.setState({</span>
@@ -149,14 +149,14 @@ class ErrorBoundary extends Component&lt;ErrorBoundaryProps, ErrorBoundaryState&
 <span class="cstat-no" title="statement not covered" >    })</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
   
-<span class="fstat-no" title="function not covered" >  render() {</span>
-<span class="cstat-no" title="statement not covered" >    if (this.state.error) {</span>
+  render() {
+    if (this.state.error) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
 <span class="cstat-no" title="statement not covered" >        &lt;h2&gt;You initiated this error, please reload the page to continue&lt;/h2&gt;</span>
 <span class="cstat-no" title="statement not covered" >      );</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    return this.props.children;</span>
-<span class="cstat-no" title="statement not covered" >  }  </span>
+    return this.props.children;
+  }  
 }
 &nbsp;
 export default ErrorBoundary;</pre></td></tr></table></pre>
@@ -166,7 +166,7 @@ export default ErrorBoundary;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-11T17:39:01.800Z
+                at 2024-08-11T21:21:54.304Z
             </div>
         <script src="../prettify.js"></script>
         <script>

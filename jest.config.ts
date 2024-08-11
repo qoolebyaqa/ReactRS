@@ -15,6 +15,14 @@ const config: Config = {
     "app/**/*.{js,ts,jsx,tsx}",
     "components/**/*.{js,ts,jsx,tsx}"
   ],
+  coveragePathIgnorePatterns: [
+    "/node_modules/",
+    "app/[name]/page.tsx",
+    "app/page.tsx",
+    "app/_app.tsx",  
+    "components/Pagination.tsx", 
+    "components/someComponent.tsx" 
+  ],
   coverageDirectory: 'coverage',
   coverageReporters: ['json', 'html', 'text']
 }

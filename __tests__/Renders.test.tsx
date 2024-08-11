@@ -5,6 +5,8 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Pokeitem from '../components/Pokeitem';
 import DescriptionCard from '../app/[name]/page';
 import { getPokemonData } from '../fnHelpers/serverHelpers';
+import ErrorPage from '../app/not-found';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const item = { name: 'bulbasaur', url: 'url1' };
 const items = [{ name: 'bulbasaur', url: 'url1' }, { name: 'ivysaur', url: 'url2' }];
@@ -101,26 +103,14 @@ describe('Pages render', () => {
     const elements = screen.getAllByTestId('poke-item')    
     expect(elements).toHaveLength(items.length);
   })
-  /* it('renders close card button', async () => {
-    const paramsTo = {
-      name:'bulbasaur'
-    }
-    render(<DescriptionCard params={{name: location.pathname.slice(1)}} searchParams={{page: 1}}/>)
-    await waitFor(() => {
-      expect(screen.getByText('Pokedeks description')).toBeInTheDocument();
-      expect(screen.getByText('Pokemon name:')).toBeInTheDocument();
-      expect(screen.getByText('bulbasaur')).toBeInTheDocument();
-    });
-  }) */
-});
-/* describe('Pages render', () => {
-  it('404 for wrong path', async () => {
-    (getPokemonData as jest.Mock).mockResolvedValue(null);
-
-    render(<DescriptionCard params={{ name: 'nonexistent' }} searchParams={query} />);
-
-    await waitFor(() => {
-      expect(screen.queryByText('Pokedeks description')).not.toBeInTheDocument();
-    })
+  it('renders error page', () => {
+    render(<ErrorPage/>)
+    const text = screen.getByText('Oh... it is 404!')    
+    expect(text).toBeInTheDocument();
   })
-}) */
+  it('renders error boundary', () => {
+    render(<ErrorBoundary><p>Sometext</p></ErrorBoundary>)
+    const text = screen.getByText('Sometext')    
+    expect(text).toBeInTheDocument();
+  })
+});

@@ -1,14 +1,14 @@
 
 import '../index.css';
-import Pokelist from '../components/Pokelist';
-import SearchComponent from '../components/SearchComponent';
-import { IResponse } from '../types';
 import { headers } from 'next/headers';
-import SelectedFlyoutEl from '../components/SelectedFlyoutEl';
 import { Suspense } from 'react';
-import Loading from './loading';
+import { IResponse } from '../../types';
+import Loading from '../../app/loading';
+import SearchComponent from '../../components/SearchComponent';
+import Pokelist from '../../components/Pokelist';
+import SelectedFlyoutEl from '../../components/SelectedFlyoutEl';
 
-export default function RootLayout({
+export default function TestLayout({
   children
 }: {
   children: React.ReactNode
@@ -32,9 +32,9 @@ export default function RootLayout({
   pageParam ? items.results.slice((Number(pageParam) - 1) * 10, 10 * Number(pageParam)) :
   items.results.slice(0, 10);
   return (
-    <html>
-    <body>
-    <main>
+    <div>
+    <div>
+    <div>
       <Suspense fallback={<Loading />}>
       <header className={`${themeParam === 'dark' ? 'dark' : ''}`}>
         <h1 style={{ padding: '10px' }}>Migration to NextJS</h1>
@@ -60,9 +60,9 @@ export default function RootLayout({
       {checkedParam && <SelectedFlyoutEl allItems={items.results} searchParams={query}/>}
       </div>
       </Suspense>
-    </main>
-    </body>
-  </html>
+    </div>
+    </div>
+  </div>
   );
 }
 
