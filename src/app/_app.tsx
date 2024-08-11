@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <ErrorBoundary>
-      <Component {...pageProps} />
+    <Component {...pageProps} />
     </ErrorBoundary>
   );
 }

@@ -4,6 +4,7 @@ import SwitchComponent from './SwitchComponent';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { IURL } from '../types';
 import { collectURL } from '../fnHelpers/fnHelpers';
+import ErrorBoundary from './ErrorBoundary';
 
 
 function SearchComponent() {
@@ -11,6 +12,7 @@ function SearchComponent() {
   const pathname = usePathname();
   const router = useRouter();
   const [searchValue, setSearchValue] = useState<string>('');
+  const [errorInit, setErrorInit] = useState<boolean>(false);
   const search = query.get("search");
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchValue(e.target.value);
@@ -30,21 +32,29 @@ function SearchComponent() {
     router.push(collectURL(updatedURL));
     router.refresh()
   }
+  if (errorInit) {
+    return <ErrorBoundary><h2>You initiated this error, please reload the page to continue</h2></ErrorBoundary>
+  }
 
   return (
     <>
       <SwitchComponent inputName='Theme changer' selectedDefaultTitle='Dark' unselectedTitle='Light' selectedStyles='selected' unselectedStyles='unselected'/>
-      <label htmlFor="search"/>
-      <input
-        type="search"
-        name="search"
-        placeholder="Choose your pokemon!"
-        value={searchValue}
-        onChange={handleInputChange}
-      />
-      <button type="button" onClick={handleSearch}>
-        SEARCH
-      </button>
+      <div style={{display: 'flex', justifyContent: 'center', gap: '40px', paddingBottom: '30px', paddingTop: '20px'}}>
+        <button onClick={() => {
+          setErrorInit(true)}
+        }  style={{backgroundColor: 'red'}}>Throw Error</button>
+        <label htmlFor="search"/>
+        <input
+          type="search"
+          name="search"
+          placeholder="Choose your pokemon!"
+          value={searchValue}
+          onChange={handleInputChange}
+        />
+        <button type="button" onClick={handleSearch}>
+          SEARCH
+        </button>
+      </div>
     </>
   );
 }

@@ -1,3 +1,4 @@
+'use client'
 import { Component, ReactNode } from "react";
 
 interface ErrorBoundaryProps {
@@ -22,7 +23,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   render() {
     if (this.state.error) {
       return (
-        <h2>You initiate this error, please reload the page to continue</h2>
+        <h2>You initiated this error, please reload the page to continue</h2>
       );
     }
     return this.props.children;

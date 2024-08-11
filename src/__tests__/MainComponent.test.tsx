@@ -13,7 +13,7 @@ import store from "../store";
 import App from "../../some/App";
 import { convertToCSV } from "../fnHelpers/fnHelpers";
 import { IAppState, IPokeItem } from "../types";
-import ErrorBoundary from "../components/ErrorBoundary";
+import ErrorBoundary from "../app/error";
 import PokeSlice, { pokeActions } from "../store/PokeSlice";
 
 
