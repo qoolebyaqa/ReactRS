@@ -37,8 +37,8 @@ function Pokeitem(itemsProps: itemsProps) {
   }
 
   return (
-    <li style={{ display: 'flex', justifyContent: 'left' }}>
-      <input type="checkbox" onChange={handleSelection} checked={query.get('checked') ? JSON.parse(query.get('checked') as string).includes(itemsProps.item.name) : false} role={`checkbox${itemsProps.item.name}`}/>
+    <li style={{ display: 'flex', justifyContent: 'left' }} data-testid='poke-item'>
+      <input type="checkbox" onChange={handleSelection} checked={query.get('checked') ? JSON.parse(query.get('checked') as string).includes(itemsProps.item.name) : false} role='checkbox'/>
         <button
           style={{ width: '150px', margin: '2px 0', marginRight: '20px' }}
           onClick={() => {            
