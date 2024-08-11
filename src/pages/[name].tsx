@@ -2,21 +2,26 @@ import { IPokeItem, Iquery, IResponse } from "../types";
 import SpecialLayout from "../components/SpecialLayout";
 import CloseDescriptionBtn from "../components/CloseDescriptionBtn";
 import { GetServerSidePropsContext } from "next";
+import ErrorPage from "./404";
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
   const { query, params } = context;
   const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=150');
   const pokemons: IResponse = await res.json();
-  if (!params?.name) {
+  if (!pokemons.results.find(pokemon => pokemon.name === params?.name)) {
     return {
-      notFound: true, 
+      props: {
+        name: 'error'
+      }
     };
   }
-  return { props: { query, name: params.name, pokemons: pokemons.results } };
+  return { props: { query, name: params?.name, pokemons: pokemons.results } };
 };
 
 function DescriptionCard({ query, name, pokemons }: {query: Iquery , name: string, pokemons: IPokeItem[]}) {
-
+  if(name === 'error') {
+    return <ErrorPage/>
+  }
   return (    
     <SpecialLayout items={pokemons} query={query}>
     <div
