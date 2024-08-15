@@ -12,6 +12,7 @@
 }
 #root {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 body {
@@ -24,7 +25,10 @@ a {
 a:hover {
   color: #535bf2;
 }
-
+p {
+  padding: 0;
+  margin: 0;
+}
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -51,44 +55,35 @@ button:focus-visible {
 li {
   list-style-type: none;
 }
-#errButon {
-  background-color: red;
-}
 input {
   height: 30px;
   font-size: large;
   padding-left: 5px;
-  margin-right: 10px;
-}
-.selected {
-  background-color: green;
-}
-.unselected {
-  background-color: #e6dfdf;
-}
-.hidden {
-  visibility: hidden;
-}
-.dark {
-  color: white;
-  background-color: black;
-}
-.light {
-  color: black;
-  background-color: white;
+  margin-left: 15px;
+  border-radius: 10px;
 }
 button:disabled {
   color: black;
   background-color: cadetblue;
 }
 
-.animateEL {
-  animation: flyOutEl 0.6s ease-in-out forwards;
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-@keyframes flyOutEl {
-  25% {transform: translateY(-20px)}
-  50% {transform: translateY(-10px)}
-  75% {transform: translateY(10px)}
-  100% {transform: translateY(0)}
+.error {
+  font-size: 12px;
+  animation: ErrorReveal 0.4s ease-in-out;
+  transition: 0.4s;
+}
+
+@keyframes ErrorReveal {
+  0% {transform: translateY(-30px);}  
+  50% {transform: translateY(30px);}  
+  100% {transform: translateY(0);}
 }
