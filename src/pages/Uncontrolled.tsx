@@ -1,10 +1,11 @@
 import { FormEvent, useRef, useState } from 'react';
 import CustomInput from '../components/CustomInput';
-import { convertTo64, formSchema, inputs } from '../helpers';
+import { collectChanges, convertTo64, formSchema, inputs } from '../helpers';
 import { ValidationError } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { formActions } from '../store/formSlice';
 import { GlobalStateType, IFormData } from '../types';
+import { useNavigate } from 'react-router';
 
 
 
@@ -12,45 +13,34 @@ import { GlobalStateType, IFormData } from '../types';
 function Uncontrolled() {
   const formRef = useRef<HTMLFormElement | null>(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
- 
-  const uncotrolledForm: IFormData = useSelector(
+  const uncotrolledForm = useSelector(
     (state: GlobalStateType) => state.formStore.uncontrolledForm
   );
   const uploadedFile = useSelector(
     (state: GlobalStateType) => state.formStore.uploadedFile
   );
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (formRef.current) {
-      const formData: IFormData = {
+      const formData = {
         ...Object.fromEntries(new FormData(formRef.current).entries()),
-      };
-      let base64Img = uploadedFile || ''
-      if (formData.acceptTerms === '') formData.acceptTerms = 'confirmed';
-      if ((formData.avatar as File).name === '') {
-        delete formData.avatar;
-      } else {
-        const fileSize = (formData.avatar as File).size;
-        const fileName = (formData.avatar as File).name;
-        const base64 = await convertTo64(formData.avatar as Blob);
-        base64Img = base64 ? base64.toString() : ''
-        formData.avatar = {
-          size: fileSize,
-          name: fileName,
-          baseImg: base64 ? base64 : '',
-        };
       }
-      if(formData.password && formData.confrimPassword === '') formData.confrimPassword = ' '
-      for (const prop in formData) {
-        if (formData[prop] === '' && prop) delete formData[prop];
-      }
+      formData.acceptTerms !== '' ? formData.acceptTerms = '' : formData.acceptTerms = 'checked' 
       try {
         const validForm = await formSchema.isValid(formData);
-        if (validForm) {
+        if (validForm) {          
+          const changes = await collectChanges(uncotrolledForm, formData)
+          const fileStr = (formData.avatar as File).name !== '' && await convertTo64(formData.avatar as File)
+          if((fileStr !== uploadedFile) && fileStr) { changes?.push({title: 'avatar', value: fileStr.toString()})}
+          dispatch(formActions.setChangedKeys(changes));
           setErrors({});
+          delete formData.avatar;
           dispatch(formActions.setUncontrolForm(formData));
-          dispatch(formActions.setUploadedFile(base64Img));
+          if(fileStr) dispatch(formActions.setUploadedFile(fileStr));
+          navigate('/ReactRS/?form=unctrl')
         } else {
           await formSchema.validate(formData, { abortEarly: false });
         }
@@ -65,7 +55,7 @@ function Uncontrolled() {
           setErrors(newErrors);
         }
       }
-    }
+    } 
   }
   return (
     <section
@@ -91,7 +81,7 @@ function Uncontrolled() {
                 label={input.label}
                 labelValue={input.labelValue}
                 type={input.type}
-                defaultValue={uncotrolledForm[input.label] as string}
+                defaultValue={uncotrolledForm ? uncotrolledForm[input.label as keyof IFormData] as string : ''} 
               />
               {errors[input.label] ? (
                 <p style={{ height: '20px', alignSelf: 'end', color: 'red' }} className='error'>
@@ -104,6 +94,13 @@ function Uncontrolled() {
           );
         })}
         <CustomInput type='file' label='avatar' labelValue='Upload avatar'/>
+        {errors.avatar ? (
+                <p style={{ height: '20px', alignSelf: 'end', color: 'red' }} className='error'>
+                  {errors.avatar}
+                </p>
+              ) : (
+                <p style={{ height: '20px', alignSelf: 'end', color: 'green' }}></p>
+              )}
         <button onClick={handleSubmit}>Submit</button>
       </form>
     </section>

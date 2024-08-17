@@ -1,15 +1,29 @@
-import Controlled from "./pages/Controlled";
-import MainPage from "./pages/MainPage";
-import Uncontrolled from "./pages/Uncontrolled";
+import Controlled from './pages/Controlled';
+import MainPage from './pages/MainPage';
+import Uncontrolled from './pages/Uncontrolled';
 import * as yup from 'yup';
-import { Ifile } from "./types";
-
+import { IFormData } from './types';
 
 export const paths = [
-  {path: '/ReactRS/', element: <MainPage />, id: 'mainpage', description: 'Home'},
-  {path: '/ReactRS/uncontrol', element: <Uncontrolled />, id: 'uncotrol', description: 'Uncontrolled form'},    
-  {path: '/ReactRS/control', element: <Controlled />, id: 'control', description: 'Controlled form'}
-]
+  {
+    path: '/ReactRS/',
+    element: <MainPage />,
+    id: 'mainpage',
+    description: 'Home',
+  },
+  {
+    path: '/ReactRS/uncontrol',
+    element: <Uncontrolled />,
+    id: 'uncotrol',
+    description: 'Uncontrolled form',
+  },
+  {
+    path: '/ReactRS/control',
+    element: <Controlled />,
+    id: 'control',
+    description: 'Controlled form',
+  },
+];
 
 export const inputs = [
   { type: 'text', label: 'name', labelValue: 'Your name', id: 1 },
@@ -36,14 +50,16 @@ export const inputs = [
     id: 8,
   },
 ];
-export async function convertTo64 (file: Blob){
+export async function convertTo64(file: Blob) {
   try {
     const reader = new FileReader();
-    const result = await new Promise<string | ArrayBuffer | null>((resolve, reject) => {
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = reject;
-    });
+    const result = await new Promise<string | ArrayBuffer | null>(
+      (resolve, reject) => {
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+      }
+    );
 
     return result;
   } catch (error) {
@@ -301,39 +317,103 @@ export function countries() {
     'Самоа',
     'Йемен',
     'Замбия',
-  ]
-} 
+  ];
+}
 
-  export const formSchema = yup.object().shape({
-    "name": yup.string().test('First letters check', 'Name must be started with Capitalize letter', (value) => {
-      const noValid = value?.split(' ').find(word => !/[A-Z]/.test(word.charAt(0)))
-      if(noValid) {
-        return false;
-      } return true
+export async function collectChanges(
+  formFromStore: IFormData | null,
+  currentForm: { [x: string]: FormDataEntryValue }
+) {
+  const changes = [];
+  for (const prop in currentForm) {
+    if (prop !== 'avatar' && currentForm[prop as keyof IFormData] !== '') {
+      if (formFromStore && formFromStore[prop as keyof IFormData]) {
+        if (
+          currentForm[prop as keyof IFormData] !==
+          formFromStore[prop as keyof IFormData]           
+        ) {
+          changes.push({
+            title: prop,
+            value: currentForm[prop as keyof IFormData],
+          });
+        }
+      } else {
+        changes.push({
+          title: prop,
+          value: currentForm[prop as keyof IFormData],
+        });
+      }
+    }
+  }
+  return changes;
+}
+export const formSchema = yup.object().shape({
+  name: yup
+    .string()
+    .test(
+      'First letters check',
+      'Name must be started with Capitalize letter',
+      (value) => {
+        const noValid = value
+          ?.split(' ')
+          .find((word) => !/[A-ZА-Я]/.test(word.charAt(0)));
+        if (noValid) {
+          return false;
+        }
+        return true;
+      }
+    ),
+  age: yup
+    .number()
+    .positive()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? undefined : value;
     }),
-    "age": yup.number().positive(),
-    "email": yup.string().email(),
-    "password": yup.string()
+  email: yup.string().email(),
+  password: yup
+    .string()
+    .transform((value, originalValue) => {
+      return originalValue === '' ? undefined : value;
+    })
     .matches(/[0-9]/, 'Password requires a number')
     .matches(/[a-z]/, 'Password requires a lowercase letter')
     .matches(/[A-Z]/, 'Password requires an uppercase letter')
     .matches(/[^\w]/, 'Password requires a symbol'),
-    "confrimPassword": yup.mixed().oneOf([yup.ref('password')], 'Passwords must match'),
-    "gender": yup.string(),
-    "acceptTerms": yup.string(),
-    "avatar": yup.mixed<Ifile>().test('fileFormat', 'Only png and jpeg files are allowed', (value?: Ifile) => {
+  confrimPassword: yup.string().when('password', (password) => {
+    if (password[0]) {
+      return yup
+        .string()
+        .required()
+        .oneOf([yup.ref('password')], 'Passwords must match');
+    } else {
+      return yup.string().notRequired();
+    }
+  }),
+  gender: yup.string(),
+  acceptTerms: yup.string(),
+  "avatar": yup.mixed<File | FileList>().test('fileFormat', 'Only png and jpeg files are allowed', (value?: File | FileList) => {
       if (value) {
         const supportedFormats = ['png', 'jpeg', 'jpg'];
-        const fileExtension = value.name?.split('.').pop()?.toLowerCase();
+        let fileExtension: string | undefined = '';
+        if(value instanceof FileList) {
+          if(value.length === 0) return true;
+          fileExtension = value[0].name?.split('.').pop()?.toLowerCase()
+        } else {
+          if(value.name === '') return true;
+          fileExtension = value.name?.split('.').pop()?.toLowerCase();
+        }
         return supportedFormats.includes(fileExtension || '');
       }
       return true;
     })
-    .test('fileSize', 'File size must be less than 3MB', (value?: Ifile) => {
-      if (value) {
-        return value.size <= 3145728;
+    .test('fileSize', 'File size must be less than 3MB', (value?: File | FileList) => {
+      if(value instanceof FileList) {
+        if(value.length === 0) return true;
+        return value[0].size <= 3145728
+      } else {
+        if((value as File).name === '') return true;
+        return (value as File).size <= 3145728
       }
-      return true;
     }),
-    "datalist": yup.string()
-  })
+  datalist: yup.string(),
+});

@@ -82,8 +82,28 @@ input[type=number]::-webkit-inner-spin-button {
   transition: 0.4s;
 }
 
+.changeItem {
+  animation: ChangeItem 0.8s ease-in-out;
+  transition: 0.8s;
+}
+.selected {
+  background-color: green;
+}
+.hidden {
+  visibility: hidden;
+}
+
 @keyframes ErrorReveal {
   0% {transform: translateY(-30px);}  
   50% {transform: translateY(30px);}  
   100% {transform: translateY(0);}
+}
+
+@keyframes ChangeItem {
+  0% {opacity: .6;}
+	10% {opacity: 1; transform: scale(.8,.5); background-color: #535bf2;}
+	20% {transform: scale(1.1,1.4); background-color: #535bf2;}
+	30% {transform: scale(.8,.8); background-color: #535bf2;}
+	40% {opacity: 1; transform: scale(1,1); background-color: #535bf2;}
+	100% {opacity: .6;}
 }
