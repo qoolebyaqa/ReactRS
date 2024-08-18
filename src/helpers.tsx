@@ -2,7 +2,7 @@ import Controlled from './pages/Controlled';
 import MainPage from './pages/MainPage';
 import Uncontrolled from './pages/Uncontrolled';
 import * as yup from 'yup';
-import { IFormData } from './types';
+import { IFormData, IFormInputs } from './types';
 
 export const paths = [
   {
@@ -21,7 +21,7 @@ export const paths = [
     path: '/ReactRS/control',
     element: <Controlled />,
     id: 'control',
-    description: 'Controlled form',
+    description: 'React hook form',
   },
 ];
 
@@ -320,6 +320,40 @@ export function countries() {
   ];
 }
 
+export async function collectChangesHook(
+  formFromStore: IFormData | null,
+  currentForm: IFormInputs
+) {
+  const changes = [];
+  for (const prop in currentForm) {
+    if (prop !== 'avatar' && currentForm[prop as keyof IFormInputs] !== '') {
+      if (formFromStore && formFromStore[prop as keyof IFormInputs]) {
+        if (
+          currentForm[prop as keyof IFormInputs] !==
+          formFromStore[prop as keyof IFormData]           
+        ) {
+          changes.push({
+            title: prop,
+            value: currentForm[prop as keyof IFormInputs],
+          });
+        }
+      } else {
+        changes.push({
+          title: prop,
+          value: currentForm[prop as keyof IFormInputs],
+        });
+      }
+    }    
+    if (prop !== 'avatar' && currentForm[prop as keyof IFormInputs] === '' && formFromStore && formFromStore[prop as keyof IFormInputs] !== '') {
+      changes.push({
+        title: prop,
+        value: '',
+      });
+    }
+  }
+  return changes;
+}
+
 export async function collectChanges(
   formFromStore: IFormData | null,
   currentForm: { [x: string]: FormDataEntryValue }
@@ -343,6 +377,12 @@ export async function collectChanges(
           value: currentForm[prop as keyof IFormData],
         });
       }
+    }    
+    if (prop !== 'avatar' && currentForm[prop as keyof IFormData] === '' && formFromStore && formFromStore[prop as keyof IFormData] !== '') {
+      changes.push({
+        title: prop,
+        value: '',
+      });
     }
   }
   return changes;

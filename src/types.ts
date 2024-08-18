@@ -40,32 +40,13 @@ export interface InitialState {
 }
 
 export interface IFormInputs {
-  name: string;
-  age: number;
-  email: string;
-  password: string;
-  confrimPassword: string;
-  gender: string;
-  acceptTerms: string;
-  datalist: string;
-  avatar?: FileList; 
-}
-/* export interface IFormControlledDta {
-  name: string;
-  email: string;
-  password: string;
-  confrimPassword: string;
-  gender: string;
-  acceptTerms: string;
-  avatar: {
-    size: number;
-    name: string;
-    baseImg: string;
-  };
-  datalist: string;
-}
-export interface IFormData {
-  [key: string]: string | Ifile | File | undefined;
+  name?: string;
+  age?: number;
+  email?: string;
+  password?: string;
+  confrimPassword?: string;
+  gender?: string;
   acceptTerms?: string;
-  avatar?: Ifile | File;
-} */
+  datalist?: string;
+  avatar?: FileList | File; 
+}

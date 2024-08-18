@@ -7,8 +7,6 @@ interface ICustomInput {
   labelValue: string,
   placeholder?: string,
   defaultValue?: string
-  /* value?: string,
-  handleChange?: () => void */
 }
 
 const ControlledInput = forwardRef<HTMLInputElement | HTMLSelectElement, ICustomInput>(({ type, label, labelValue, placeholder, defaultValue, ...props }: ICustomInput, ref) => {
@@ -18,7 +16,7 @@ const ControlledInput = forwardRef<HTMLInputElement | HTMLSelectElement, ICustom
       return (
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
         <label htmlFor={label}>{labelValue}</label>
-        <select name={label} id={label} defaultValue={defaultValue ? defaultValue : ''} ref={ref as React.Ref<HTMLSelectElement>} {...props}>
+        <select name={label} id={label} defaultValue={defaultValue ? defaultValue : ''} ref={ref as React.Ref<HTMLSelectElement>} {...props} >
           <option/>
           <option value="male">Male</option>
           <option value="female">Female</option>
@@ -29,7 +27,7 @@ const ControlledInput = forwardRef<HTMLInputElement | HTMLSelectElement, ICustom
       return (
       <div style={{display: 'flex', justifyContent: 'space-between'}}>
         <label htmlFor={label}>{labelValue}</label>
-        <input list={type} id={label} name={label} defaultValue={defaultValue ? defaultValue : ''} ref={ref as React.Ref<HTMLInputElement>}  {...props}/>
+        <input list={type} id={label} name={label} defaultValue={defaultValue ? defaultValue : ''} ref={ref as React.Ref<HTMLInputElement>} {...props}/>
         <datalist id={type}>
           {countries.map(country => 
             <option value={country} key={country}/>

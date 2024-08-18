@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { collectChanges, convertTo64, formSchema, inputs } from '../helpers';
+import { collectChangesHook, convertTo64, formSchema, inputs } from '../helpers';
 import ControlledInput from '../components/ControlledInput';
 import { GlobalStateType, IFormInputs } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,23 +22,22 @@ function Controlled() {
   } = useForm({ mode: "onChange",
     resolver: yupResolver(formSchema),
   });
-  async function submitHandler(formData: { [x: string]: FormDataEntryValue}) {
+  async function submitHandler(formData: IFormInputs) {
     formData.acceptTerms === 'false' ? formData.acceptTerms = '' : formData.acceptTerms = 'checked' 
-    const changes = await collectChanges(cotrolledForm, formData)
+    const changes = await collectChangesHook(cotrolledForm, formData)
     const fileStr = (formData.avatar as unknown as FileList)[0] && await convertTo64((formData.avatar as unknown as FileList)[0])
     if((fileStr !== uploadedFile) && fileStr) { changes?.push({title: 'avatar', value: fileStr.toString()})}
     dispatch(formActions.setChangedKeysControlled(changes));
     delete formData.avatar;
     dispatch(formActions.setControlledForm(formData));
-    if(fileStr) dispatch(formActions.setUploadedFileControlled(fileStr));
-    navigate('/ReactRS/?form=ctrl')        
+    if(fileStr) dispatch(formActions.setUploadedFileControlled(fileStr));    
+    navigate('/ReactRS/?form=ctrl')       
   }
-
   return (
     <section
       style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <h2>Controlled form</h2>
+      <h2>React hook form</h2>
       <form
         style={{
           display: 'flex',
@@ -89,7 +88,7 @@ function Controlled() {
         ) : (
           <p style={{ height: '20px', alignSelf: 'end', color: 'green' }}></p>
         )}
-        <button>Submit</button>
+        <button disabled={Object.keys(errors).length > 0}>Submit</button>
       </form>
     </section>
   );
